@@ -3,6 +3,7 @@ import { Fraunces, Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { StickyMobileBar } from "@/components/layout/sticky-mobile-bar";
 import { JsonLd } from "@/components/seo/json-ld";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { site } from "@/lib/site";
@@ -68,6 +69,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-AU"
+      // Next 16 no longer overrides scroll-behavior during navigation unless
+      // this attribute is present, which would make route changes animate.
+      data-scroll-behavior="smooth"
       className={`${inter.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background">
@@ -84,6 +88,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        <StickyMobileBar />
         <Toaster position="top-center" richColors />
       </body>
     </html>

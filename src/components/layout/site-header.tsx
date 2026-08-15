@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
-import { ChevronDown, Mail, Menu, Phone, MapPin } from "lucide-react";
+import { Menu, Phone } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -11,243 +11,172 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Logo } from "@/components/brand/logo";
-import { ctaGold, ctaOutline } from "@/components/ui/cta";
+import { NavLockup } from "@/components/brand/wordmark";
 import { cn } from "@/lib/utils";
 import { nav, services, site } from "@/lib/site";
 
+/**
+ * Nav (plan §2.6): transparent over the hero, then solid linen with a 1px gold
+ * bottom rule after 80px of scroll. The lockup is ≥40px tall throughout.
+ *
+ * Only the homepage has a full-bleed hero for the nav to sit over, so every
+ * other route starts solid.
+ */
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
-  const [servicesOpen, setServicesOpen] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
 
-  // Close any open menu once a navigation has been requested. Doing this in the
-  // click handler rather than a pathname effect avoids a cascading render.
-  const closeMenus = React.useCallback(() => {
-    setOpen(false);
-    setServicesOpen(false);
-  }, []);
+  const overlayCapable = pathname === "/";
+
+  React.useEffect(() => {
+    if (!overlayCapable) return;
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [overlayCapable]);
+
+  const transparent = overlayCapable && !scrolled;
+  const tone = transparent ? "onDark" : "onLight";
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-50">
-      {/* Utility bar */}
-      <div className="bg-navy-950 text-navy-100">
-        <div className="mx-auto flex h-9 max-w-7xl items-center justify-between gap-4 px-4 text-xs sm:px-6 lg:px-8">
-          <p className="hidden items-center gap-1.5 sm:flex">
-            <MapPin className="size-3.5 text-gold-400" aria-hidden />
-            Manufactured in Penrith · Serving all of Sydney
-          </p>
-          <div className="flex items-center gap-4">
-            <a
-              href={`mailto:${site.email}`}
-              className="hidden items-center gap-1.5 transition-colors hover:text-gold-300 md:flex"
-            >
-              <Mail className="size-3.5 text-gold-400" aria-hidden />
-              {site.email}
-            </a>
-            <span className="hidden text-navy-100/40 md:inline" aria-hidden>
-              |
-            </span>
-            <a
-              href={site.phone.href}
-              className="flex items-center gap-1.5 font-semibold transition-colors hover:text-gold-300"
-            >
-              <Phone className="size-3.5 text-gold-400" aria-hidden />
-              {site.phone.display}
-            </a>
-          </div>
-        </div>
-      </div>
+    <header
+      className={cn(
+        "inset-x-0 top-0 z-50 transition-colors duration-500",
+        // Only the homepage hero is full-bleed behind the nav. Everywhere else
+        // the header stays in normal flow so page content is not clipped.
+        overlayCapable ? "fixed" : "sticky",
+        transparent
+          ? "bg-transparent"
+          : "border-b border-[var(--gold-500)]/60 bg-linen/95 backdrop-blur supports-[backdrop-filter]:bg-linen/85",
+      )}
+    >
+      <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between gap-6 px-5 sm:px-8 lg:px-12">
+        <Link href="/" aria-label={`${site.name} home`} className="py-2">
+          <NavLockup tone={tone} />
+        </Link>
 
-      {/* Gold lining */}
-      <div className="h-px bg-gold-500" aria-hidden />
+        <nav aria-label="Main" className="hidden items-center gap-7 lg:flex">
+          {nav
+            .filter((item) => item.href !== "/")
+            .map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                className={cn(
+                  "text-sm font-medium transition-colors",
+                  transparent
+                    ? "text-white/85 hover:text-white"
+                    : "text-stone-600 hover:text-ink",
+                  isActive(item.href) &&
+                    (transparent ? "text-white" : "text-ink"),
+                )}
+              >
+                {item.label}
+              </Link>
+            ))}
+        </nav>
 
-      {/* Main bar */}
-      <div className="border-b border-border bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
-        <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
-          <Link href="/" aria-label={`${site.name} home`} className="py-3">
-            <Logo />
+        <div className="flex items-center gap-3">
+          <a
+            href={site.phone.href}
+            className={cn(
+              "hidden items-center gap-2 text-sm font-medium transition-colors md:flex",
+              transparent
+                ? "text-white/85 hover:text-white"
+                : "text-stone-600 hover:text-ink",
+            )}
+          >
+            <Phone className="size-4" aria-hidden />
+            {site.phone.display}
+          </a>
+
+          {/* Ink fill, never gold — gold is a line, not a fill (§2.1.4) */}
+          <Link
+            href="/contact"
+            className={cn(
+              "hidden h-11 items-center px-6 text-sm font-medium tracking-wide transition-colors sm:inline-flex",
+              transparent
+                ? "bg-linen text-ink hover:bg-white"
+                : "bg-ink text-linen hover:bg-[var(--indigo-700)]",
+            )}
+          >
+            Request a quote
           </Link>
 
-          {/* Desktop nav */}
-          <nav
-            aria-label="Main"
-            className="hidden items-center gap-1 lg:flex"
-            onMouseLeave={() => setServicesOpen(false)}
-          >
-            {nav.map((item) =>
-              item.href === "/services" ? (
-                <div
-                  key={item.href}
-                  className="relative"
-                  onMouseEnter={() => setServicesOpen(true)}
-                >
-                  <Link
-                    href={item.href}
-                    aria-expanded={servicesOpen}
-                    onFocus={() => setServicesOpen(true)}
-                    className={cn(
-                      "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                      isActive(item.href)
-                        ? "text-navy-900"
-                        : "text-navy-900/70 hover:text-navy-900",
-                    )}
-                  >
-                    {item.label}
-                    <ChevronDown
-                      className={cn(
-                        "size-3.5 transition-transform",
-                        servicesOpen && "rotate-180",
-                      )}
-                      aria-hidden
-                    />
-                  </Link>
-                  {servicesOpen && (
-                    <div className="absolute left-1/2 top-full w-[26rem] -translate-x-1/2 pt-3">
-                      <div className="overflow-hidden rounded-xl border border-border bg-white shadow-lg shadow-navy-950/10">
-                        <div className="h-0.5 bg-gold-500" aria-hidden />
-                        <ul className="p-2">
-                          {services.map((s) => (
-                            <li key={s.slug}>
-                              <Link
-                                href={`/services/${s.slug}`}
-                                onClick={closeMenus}
-                                className="block rounded-lg px-3 py-2.5 transition-colors hover:bg-sand"
-                              >
-                                <span className="block text-sm font-semibold text-navy-900">
-                                  {s.name}
-                                </span>
-                                <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
-                                  {s.summary}
-                                </span>
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                        <Link
-                          href="/services"
-                          onClick={closeMenus}
-                          className="block border-t border-border bg-sand px-5 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-navy-900 transition-colors hover:text-gold-600"
-                        >
-                          View all services →
-                        </Link>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={isActive(item.href) ? "page" : undefined}
-                  className={cn(
-                    "rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                    isActive(item.href)
-                      ? "text-navy-900"
-                      : "text-navy-900/70 hover:text-navy-900",
-                  )}
-                >
-                  {item.label}
-                </Link>
-              ),
-            )}
-          </nav>
-
-          {/* Desktop CTAs */}
-          <div className="hidden items-center gap-2 lg:flex">
-            <a href={site.phone.href} className={ctaOutline()}>
-              <Phone aria-hidden />
-              {site.phone.display}
-            </a>
-            <Link href="/contact" className={ctaGold()}>
-              Get a Quote
-            </Link>
-          </div>
-
-          {/* Mobile */}
-          <div className="flex items-center gap-2 lg:hidden">
-            <a
-              href={site.phone.href}
-              className={ctaGold("md", "px-4")}
-              aria-label={`Call ${site.name} on ${site.phone.display}`}
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger
+              aria-label="Open menu"
+              className={cn(
+                "inline-flex size-11 items-center justify-center border transition-colors lg:hidden",
+                transparent
+                  ? "border-white/40 text-white hover:bg-white/10"
+                  : "border-stone-300 text-ink hover:bg-white",
+              )}
             >
-              <Phone aria-hidden />
-              <span className="hidden sm:inline">Call</span>
-            </a>
-            <Sheet open={open} onOpenChange={setOpen}>
-              <SheetTrigger
-                aria-label="Open menu"
-                className="inline-flex size-11 items-center justify-center rounded-lg border border-navy-200 text-navy-900 transition-colors hover:bg-navy-50"
-              >
-                <Menu className="size-5" aria-hidden />
-              </SheetTrigger>
-              <SheetContent side="right" className="w-full max-w-sm p-0">
-                <SheetHeader className="border-b border-border px-6 py-5">
-                  <SheetTitle className="sr-only">Menu</SheetTitle>
-                  <Logo />
-                </SheetHeader>
-                <div className="flex flex-col overflow-y-auto px-6 py-6">
-                  <nav aria-label="Mobile" className="flex flex-col gap-1">
-                    {nav.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={closeMenus}
-                        className={cn(
-                          "rounded-lg px-3 py-3 text-base font-medium transition-colors",
-                          isActive(item.href)
-                            ? "bg-sand text-navy-900"
-                            : "text-navy-900/80 hover:bg-sand",
-                        )}
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </nav>
-
-                  <p className="mt-6 px-3 text-xs font-semibold uppercase tracking-[0.18em] text-gold-600">
-                    Our Services
-                  </p>
-                  <ul className="mt-2 flex flex-col gap-1">
-                    {services.map((s) => (
-                      <li key={s.slug}>
-                        <Link
-                          href={`/services/${s.slug}`}
-                          onClick={closeMenus}
-                          className="block rounded-lg px-3 py-2.5 text-sm text-navy-900/75 transition-colors hover:bg-sand"
-                        >
-                          {s.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-8 flex flex-col gap-2">
+              <Menu className="size-5" aria-hidden />
+            </SheetTrigger>
+            <SheetContent side="right" className="w-full max-w-sm bg-linen p-0">
+              <SheetHeader className="border-b border-stone-300/60 px-6 py-5">
+                <SheetTitle className="sr-only">Menu</SheetTitle>
+                <NavLockup />
+              </SheetHeader>
+              <div className="flex flex-col overflow-y-auto px-6 py-6">
+                <nav aria-label="Mobile" className="flex flex-col">
+                  {nav.map((item) => (
                     <Link
-                      href="/contact"
-                      onClick={closeMenus}
-                      className={ctaGold("lg", "w-full")}
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="border-b border-stone-300/50 py-4 font-display text-2xl text-ink"
                     >
-                      Get a Free Quote
+                      {item.label}
                     </Link>
-                    <a
-                      href={site.phone.href}
-                      className={ctaOutline("lg", "w-full")}
-                    >
-                      <Phone aria-hidden />
-                      {site.phone.display}
-                    </a>
-                    <p className="mt-2 text-center text-xs text-muted-foreground">
-                      {site.hours.display}
-                    </p>
-                  </div>
+                  ))}
+                </nav>
+
+                <p className="eyebrow mt-8">Services</p>
+                <ul className="mt-3 flex flex-col gap-2">
+                  {services.map((s) => (
+                    <li key={s.slug}>
+                      <Link
+                        href={`/services/${s.slug}`}
+                        onClick={() => setOpen(false)}
+                        className="block py-1.5 text-sm text-stone-600 transition-colors hover:text-ink"
+                      >
+                        {s.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-10 flex flex-col gap-3">
+                  <Link
+                    href="/contact"
+                    onClick={() => setOpen(false)}
+                    className="inline-flex h-12 items-center justify-center bg-ink px-6 text-sm font-medium text-linen"
+                  >
+                    Request a quote
+                  </Link>
+                  <a
+                    href={site.phone.href}
+                    className="inline-flex h-12 items-center justify-center border border-[var(--gold-500)] px-6 text-sm font-medium text-ink"
+                  >
+                    <Phone className="mr-2 size-4" aria-hidden />
+                    {site.phone.display}
+                  </a>
+                  <p className="mt-1 text-center text-xs text-stone-600">
+                    {site.hours.display}
+                  </p>
                 </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </header>

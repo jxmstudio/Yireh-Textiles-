@@ -19,7 +19,7 @@ const company = [
 export function SiteFooter() {
   return (
     <footer className="relative overflow-hidden border-t border-[var(--gold-500)] bg-ink text-linen">
-      <div className="mx-auto max-w-[1600px] px-5 pt-24 pb-40 sm:px-8 sm:pb-24 lg:px-12 lg:pt-32">
+      <div className="mx-auto max-w-[1600px] px-5 pt-24 sm:px-8 lg:px-12 lg:pt-32">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div>
             <h2 className="eyebrow eyebrow-on-dark">Products</h2>
@@ -114,9 +114,14 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* Oversized wordmark as texture, bled off the bottom edge */}
-      <div className="pointer-events-none absolute inset-x-0 -bottom-4 overflow-hidden sm:-bottom-8">
-        <FooterWordmark className="translate-y-[18%] whitespace-nowrap px-5 lg:px-12" />
+      {/*
+        Oversized wordmark as a graphic element (plan §3.11). It sits in normal
+        flow rather than absolutely positioned, so it can never be clipped by
+        the footer edge or collide with the copyright row. Extra bottom padding
+        below the `sm` breakpoint keeps it clear of the sticky mobile call bar.
+      */}
+      <div className="mx-auto max-w-[1600px] px-5 pt-14 pb-24 sm:px-8 sm:pb-8 lg:px-12">
+        <FooterWordmark />
       </div>
     </footer>
   );

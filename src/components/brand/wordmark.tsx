@@ -83,15 +83,32 @@ export function HeroWordmark({ className }: { className?: string }) {
  */
 export function FooterWordmark({ className }: { className?: string }) {
   return (
-    <span
+    <svg
       aria-hidden="true"
+      viewBox="0 0 1000 150"
+      preserveAspectRatio="xMidYMax meet"
       className={cn(
-        "pointer-events-none block font-display font-semibold leading-[0.8] tracking-[0.02em] text-white/[0.07] select-none",
+        "pointer-events-none block w-full overflow-visible select-none",
         className,
       )}
-      style={{ fontSize: "clamp(4.5rem, 19vw, 18rem)" }}
     >
-      Yireh Textiles
-    </span>
+      {/*
+        textLength pins the word to the full width of the viewBox, so it scales
+        to any container without ever being clipped or wrapping — and it stays
+        correct even before the display font has loaded, when fallback metrics
+        would otherwise change the natural width.
+      */}
+      <text
+        x="0"
+        y="118"
+        textLength="1000"
+        lengthAdjust="spacingAndGlyphs"
+        fontSize="150"
+        fontWeight="600"
+        className="fill-white/[0.07] font-display"
+      >
+        Yireh Textiles
+      </text>
+    </svg>
   );
 }

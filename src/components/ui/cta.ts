@@ -18,11 +18,27 @@ type Size = keyof typeof sizes;
 export const ctaPrimary = (size: Size = "md", className?: string) =>
   cn(base, sizes[size], "bg-navy-900 text-white hover:bg-navy-800", className);
 
-export const ctaGold = (size: Size = "md", className?: string) =>
+/**
+ * Primary solid CTA on a light ground.
+ *
+ * This used to be a gold fill. Gold is a line, not a fill (plan §2.1.4) — a
+ * gold button was the single biggest carry-over of the look the client
+ * rejected — so it is now ink, matching the homepage. Gold survives here only
+ * as the focus ring and as hairline borders elsewhere.
+ */
+export const ctaSolid = (size: Size = "md", className?: string) =>
+  cn(base, sizes[size], "bg-ink text-linen hover:bg-indigo-700", className);
+
+/** Primary CTA over a dark panel or photograph — linen fill, ink label. */
+export const ctaOnDark = (size: Size = "md", className?: string) =>
+  cn(base, sizes[size], "bg-linen text-ink hover:bg-white", className);
+
+/** Secondary CTA over a dark panel: 1px gold hairline, never a fill. */
+export const ctaGhostGold = (size: Size = "md", className?: string) =>
   cn(
     base,
     sizes[size],
-    "bg-gold-500 text-navy-950 hover:bg-gold-400",
+    "border border-gold-500 text-white hover:bg-white/10",
     className,
   );
 

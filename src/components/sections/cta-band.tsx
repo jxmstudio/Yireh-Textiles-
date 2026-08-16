@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Phone } from "lucide-react";
 import { Container } from "@/components/layout/section";
-import { ctaGold, ctaOutlineLight } from "@/components/ui/cta";
+import { ctaOnDark, ctaOutlineLight } from "@/components/ui/cta";
 import { site } from "@/lib/site";
 
 export function CtaBand({
@@ -26,7 +26,7 @@ export function CtaBand({
             </p>
           </div>
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
-            <Link href="/contact" className={ctaGold("lg", "w-full sm:w-auto")}>
+            <Link href="/contact" className={ctaOnDark("lg", "w-full sm:w-auto")}>
               Request a Quote
             </Link>
             <a

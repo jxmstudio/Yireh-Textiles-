@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { PageHero } from "@/components/layout/page-hero";
+import { images } from "@/content/images";
 import { Container, Section } from "@/components/layout/section";
 import { EnquiryForm } from "@/components/forms/enquiry-form";
 import { FaqSection } from "@/components/sections/faq-section";
 import { JsonLd } from "@/components/seo/json-ld";
-import { ctaGold, ctaOutlineLight } from "@/components/ui/cta";
+import { ctaOnDark, ctaOutlineLight } from "@/components/ui/cta";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { areas, faqs, services, site } from "@/lib/site";
 
@@ -58,13 +59,14 @@ export default function ContactPage() {
       <JsonLd id="contact-faq" data={faqSchema(faqs.slice(0, 5))} />
 
       <PageHero
+        image={images.work10}
         trail={trail}
         eyebrow="Contact"
         title="Tell us what you need made"
         lead="Call us, email us, or send the form below. Either way you will get a written quote with the materials, quantities and lead time on it before anything starts."
         actions={
           <>
-            <a href={site.phone.href} className={ctaGold("lg")}>
+            <a href={site.phone.href} className={ctaOnDark("lg")}>
               <Phone aria-hidden />
               {site.phone.display}
             </a>

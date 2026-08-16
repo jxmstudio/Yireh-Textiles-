@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, MapPin, Phone, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/layout/section";
-import { ctaGold, ctaOutlineLight } from "@/components/ui/cta";
+import { ctaSolid, ctaOutlineLight } from "@/components/ui/cta";
 import { site } from "@/lib/site";
 
 const proofPoints = [
@@ -106,7 +106,7 @@ export function Hero() {
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
                 href="/contact"
-                className={ctaGold("lg", "w-full sm:w-auto")}
+                className={ctaSolid("lg", "w-full sm:w-auto")}
               >
                 Get a Free Quote
                 <ArrowRight aria-hidden />

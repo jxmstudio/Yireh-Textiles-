@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, MapPin, Phone } from "lucide-react";
 import { PageHero } from "@/components/layout/page-hero";
+import { images } from "@/content/images";
 import { Container, Section, SectionHeading } from "@/components/layout/section";
 import { EnquirySection } from "@/components/sections/enquiry-section";
 import { CtaBand } from "@/components/sections/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
-import { ctaGold, ctaOutlineLight } from "@/components/ui/cta";
+import { ctaOnDark, ctaOutlineLight } from "@/components/ui/cta";
 import { breadcrumbSchema } from "@/lib/schema";
 import { areas, services, site } from "@/lib/site";
 
@@ -39,13 +40,14 @@ export default function AreasPage() {
       <JsonLd id="areas-breadcrumb" data={breadcrumbSchema(trail)} />
 
       <PageHero
+        image={images.stepInstall}
         trail={trail}
         eyebrow="Service area"
         title="Made in Penrith, delivered across Sydney"
         lead="Our workroom is in Western Sydney and our vans cover the rest of it. We measure on site, deliver, and install curtains, tracks and blinds from the Hawkesbury to the Shire."
         actions={
           <>
-            <Link href="/contact" className={ctaGold("lg")}>
+            <Link href="/contact" className={ctaOnDark("lg")}>
               Check Your Suburb
               <ArrowRight aria-hidden />
             </Link>

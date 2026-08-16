@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
 import { PageHero } from "@/components/layout/page-hero";
+import { images } from "@/content/images";
 import { Container, Section, SectionHeading } from "@/components/layout/section";
 import { ServiceCard } from "@/components/sections/services-grid";
 import { Process } from "@/components/sections/process";
 import { EnquirySection } from "@/components/sections/enquiry-section";
 import { CtaBand } from "@/components/sections/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
-import { ctaGold, ctaOutlineLight } from "@/components/ui/cta";
+import { ctaOnDark, ctaOutlineLight } from "@/components/ui/cta";
 import { breadcrumbSchema } from "@/lib/schema";
 import { services, site } from "@/lib/site";
 
@@ -30,13 +31,14 @@ export default function ServicesPage() {
       <JsonLd id="services-breadcrumb" data={breadcrumbSchema(trail)} />
 
       <PageHero
+        image={images.workroom}
         trail={trail}
         eyebrow="What we make"
         title="Everything we manufacture, in one place"
         lead="Five capabilities, one production floor in Penrith. Most of our clients start with one and end up using two or three."
         actions={
           <>
-            <Link href="/contact" className={ctaGold("lg")}>
+            <Link href="/contact" className={ctaOnDark("lg")}>
               Get a Free Quote
               <ArrowRight aria-hidden />
             </Link>

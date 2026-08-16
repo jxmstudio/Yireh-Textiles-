@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, Check, Phone, Users } from "lucide-react";
 import { PageHero } from "@/components/layout/page-hero";
 import { Container, Section, SectionHeading } from "@/components/layout/section";
-import { ServiceIcon } from "@/components/brand/service-icon";
 import { EnquirySection } from "@/components/sections/enquiry-section";
 import { CtaBand } from "@/components/sections/cta-band";
+import { PhotoBand } from "@/components/shared/photo-band";
 import { JsonLd } from "@/components/seo/json-ld";
-import { ctaGold, ctaOutlineLight } from "@/components/ui/cta";
+import { ctaSolid, ctaOnDark, ctaOutlineLight } from "@/components/ui/cta";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
+import { serviceMedia } from "@/content/products";
 import { areas, getService, services, site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -42,6 +44,7 @@ export default async function ServicePage({
   const service = getService(slug);
   if (!service) notFound();
 
+  const media = serviceMedia[service.slug];
   const others = services.filter((s) => s.slug !== service.slug);
   const trail = [
     { name: "Home", href: "/" },
@@ -62,9 +65,10 @@ export default async function ServicePage({
         eyebrow={service.name}
         title={service.title}
         lead={service.summary}
+        image={media?.hero}
         actions={
           <>
-            <Link href="/contact" className={ctaGold("lg")}>
+            <Link href="/contact" className={ctaOnDark("lg")}>
               Get a Quote
               <ArrowRight aria-hidden />
             </Link>
@@ -81,9 +85,21 @@ export default async function ServicePage({
         <Container>
           <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
             <div>
-              <span className="flex size-14 items-center justify-center rounded-xl bg-navy-950 text-gold-400">
-                <ServiceIcon icon={service.icon} className="size-7" />
-              </span>
+              {/* A photograph, not an icon (§2.1.2). */}
+              {media && (
+                <div className="relative mb-8 aspect-[3/2] overflow-hidden">
+                  <Image
+                    src={media.gallery[0].src}
+                    alt={media.gallery[0].alt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 55vw"
+                    quality={90}
+                    placeholder="blur"
+                    blurDataURL={media.gallery[0].blurDataURL}
+                    className="object-cover"
+                  />
+                </div>
+              )}
               <div className="mt-6 space-y-5">
                 {service.intro.map((para) => (
                   <p
@@ -152,7 +168,7 @@ export default async function ServicePage({
 
               <Link
                 href="/contact"
-                className={ctaGold("md", "mt-8 w-full")}
+                className={ctaSolid("md", "mt-8 w-full")}
               >
                 Enquire about {service.name.toLowerCase()}
               </Link>
@@ -193,31 +209,55 @@ export default async function ServicePage({
         </Container>
       </Section>
 
+      {media && (
+        <PhotoBand
+          eyebrow="Recent work"
+          heading={`${service.name} out of our workroom.`}
+          images={media.gallery}
+        />
+      )}
+
       {/* Other services */}
       <Section className="py-14 sm:py-16">
         <Container>
           <h2 className="font-heading text-2xl font-semibold text-navy-950">
             Other things we manufacture
           </h2>
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {others.map((s) => (
-              <li key={s.slug}>
-                <Link
-                  href={`/services/${s.slug}`}
-                  className="group flex h-full flex-col rounded-xl border border-border bg-white p-5 transition-colors hover:border-gold-300"
-                >
-                  <span className="flex size-10 items-center justify-center rounded-lg bg-navy-950 text-gold-400">
-                    <ServiceIcon icon={s.icon} className="size-5" />
-                  </span>
-                  <span className="mt-4 font-heading text-base font-semibold text-navy-950 transition-colors group-hover:text-gold-600">
-                    {s.name}
-                  </span>
-                  <span className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {s.summary}
-                  </span>
-                </Link>
-              </li>
-            ))}
+          {/* Photographic tiles, not icon cards (§2.1.2). */}
+          <ul className="mt-8 grid gap-0.5 sm:grid-cols-2 lg:grid-cols-4">
+            {others.map((s) => {
+              const tile = serviceMedia[s.slug]?.hero;
+              return (
+                <li key={s.slug}>
+                  <Link
+                    href={`/services/${s.slug}`}
+                    className="group relative flex aspect-[4/5] flex-col justify-end overflow-hidden bg-ink p-6"
+                  >
+                    {tile && (
+                      <Image
+                        src={tile.src}
+                        alt={tile.alt}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        placeholder="blur"
+                        blurDataURL={tile.blurDataURL}
+                        className="object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.04]"
+                      />
+                    )}
+                    <span
+                      aria-hidden
+                      className="absolute inset-0 bg-[linear-gradient(to_top,rgba(12,23,41,0.88),rgba(12,23,41,0.2)_55%,transparent)]"
+                    />
+                    <span className="relative font-display text-xl text-white">
+                      {s.name}
+                    </span>
+                    <span className="relative mt-2 text-sm leading-relaxed text-white/75">
+                      {s.summary}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </Container>
       </Section>

@@ -8,7 +8,7 @@ import { CheckCircle2, ChevronDown, Loader2, Phone } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { ctaGold } from "@/components/ui/cta";
+import { ctaSolid } from "@/components/ui/cta";
 import {
   contactPreferences,
   enquirySchema,
@@ -119,7 +119,7 @@ export function EnquiryForm({
           If it&apos;s urgent, call {site.phone.display} between 8am and 6pm.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <a href={site.phone.href} className={ctaGold()}>
+          <a href={site.phone.href} className={ctaSolid()}>
             <Phone aria-hidden />
             {site.phone.display}
           </a>
@@ -279,7 +279,7 @@ export function EnquiryForm({
         <button
           type="submit"
           disabled={isSubmitting}
-          className={ctaGold("lg", "w-full sm:w-auto")}
+          className={ctaSolid("lg", "w-full sm:w-auto")}
         >
           {isSubmitting && <Loader2 className="animate-spin" aria-hidden />}
           {isSubmitting ? "Sending…" : "Send Enquiry"}

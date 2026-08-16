@@ -54,7 +54,9 @@ export function Eyebrow({
     <p
       className={cn(
         "flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em]",
-        tone === "onDark" ? "text-gold-400" : "text-gold-600",
+        // gold-600 on a light ground is only 3.2:1 and fails AA at this size;
+        // gold-700 reaches 4.9:1 and still reads as gold.
+        tone === "onDark" ? "text-gold-300" : "text-gold-700",
         className,
       )}
     >

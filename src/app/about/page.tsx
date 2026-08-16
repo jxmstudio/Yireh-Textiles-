@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
 import { PageHero } from "@/components/layout/page-hero";
+import { images } from "@/content/images";
 import { Container, Section, SectionHeading } from "@/components/layout/section";
 import { WovenYMark } from "@/components/brand/logo";
 import { ClientStrip } from "@/components/sections/client-strip";
@@ -9,7 +10,7 @@ import { Process } from "@/components/sections/process";
 import { EnquirySection } from "@/components/sections/enquiry-section";
 import { CtaBand } from "@/components/sections/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
-import { ctaGold, ctaOutlineLight } from "@/components/ui/cta";
+import { ctaOnDark, ctaOutlineLight } from "@/components/ui/cta";
 import { breadcrumbSchema } from "@/lib/schema";
 import { differentiators, services, site, stats } from "@/lib/site";
 
@@ -46,13 +47,14 @@ export default function AboutPage() {
       <JsonLd id="about-breadcrumb" data={breadcrumbSchema(trail)} />
 
       <PageHero
+        image={images.heroPoster}
         trail={trail}
         eyebrow="About Yireh Textiles"
         title="Ten years of manufacturing, from a workroom in Penrith"
         lead="We are a Western Sydney manufacturer, not a reseller. Everything we quote is made by our own team, on our own floor, to a standard that trade clients have kept coming back to for a decade."
         actions={
           <>
-            <Link href="/contact" className={ctaGold("lg")}>
+            <Link href="/contact" className={ctaOnDark("lg")}>
               Work With Us
               <ArrowRight aria-hidden />
             </Link>

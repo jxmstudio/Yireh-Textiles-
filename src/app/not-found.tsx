@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Phone } from "lucide-react";
 import { Container, Section } from "@/components/layout/section";
 import { WovenYMark } from "@/components/brand/logo";
-import { ctaGold, ctaOutline } from "@/components/ui/cta";
+import { ctaSolid, ctaOutline } from "@/components/ui/cta";
 import { services, site } from "@/lib/site";
 
 export default function NotFound() {
@@ -23,7 +23,7 @@ export default function NotFound() {
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/" className={ctaGold("lg")}>
+            <Link href="/" className={ctaSolid("lg")}>
               Back to home
             </Link>
             <a href={site.phone.href} className={ctaOutline("lg")}>

@@ -50,6 +50,82 @@ export const capabilities: Capability[] = [
 ];
 
 /**
+ * Photography for the service pages, keyed by the service slug in lib/site.ts.
+ *
+ * `hero` drives the full-bleed <PageHero image>, `gallery` the photo band that
+ * replaces the icon block. Every service page is therefore image-led rather
+ * than a heading on a flat panel (plan §4).
+ */
+export const serviceMedia: Record<string, { hero: Img; gallery: Img[] }> = {
+  "curtains-and-blinds": {
+    hero: images.svcCurtainsHero,
+    gallery: [
+      images.svcCurtains1,
+      images.svcCurtains2,
+      images.svcCurtains3,
+      images.svcCurtains4,
+    ],
+  },
+  "soft-furnishings-and-upholstery": {
+    hero: images.svcSoftHero,
+    gallery: [
+      images.svcSoft1,
+      images.svcSoft2,
+      images.svcSoft3,
+      images.svcSoft4,
+    ],
+  },
+  "campervan-and-marine": {
+    hero: images.svcMarineHero,
+    gallery: [
+      images.svcMarine1,
+      images.svcMarine2,
+      images.svcMarine3,
+      images.svcMarine4,
+    ],
+  },
+  "bulk-garment-manufacturing": {
+    hero: images.svcGarmentHero,
+    gallery: [
+      images.svcGarment1,
+      images.svcGarment2,
+      images.svcGarment3,
+      images.svcGarment4,
+    ],
+  },
+  "production-systems-consulting": {
+    hero: images.svcProductionHero,
+    gallery: [
+      images.svcProduction1,
+      images.svcProduction2,
+      images.svcProduction3,
+      images.svcProduction4,
+    ],
+  },
+};
+
+/**
+ * A hero for each service area, chosen to match what that area's copy actually
+ * claims — period windows for the Inner West, a boat for the Shire, tall
+ * arched windows for the Hills — so the twelve pages do not read as one
+ * template with the suburb swapped.
+ */
+export const areaMedia: Record<string, Img> = {
+  penrith: images.areaPenrith,
+  blacktown: images.areaBlacktown,
+  parramatta: images.areaParramatta,
+  liverpool: images.areaLiverpool,
+  "the-hills-district": images.areaHills,
+  hawkesbury: images.areaHawkesbury,
+  campbelltown: images.areaCampbelltown,
+  "sydney-cbd": images.areaSydneyCbd,
+  "inner-west": images.areaInnerWest,
+  "north-shore": images.areaNorthShore,
+  "northern-beaches": images.areaNorthernBeaches,
+  "sutherland-shire": images.areaSutherland,
+};
+
+/**
  * The materials strip (plan §3.6). Cheap to reshoot on a phone, and it does a
  * lot of work for the "premium and tactile" note.
  */

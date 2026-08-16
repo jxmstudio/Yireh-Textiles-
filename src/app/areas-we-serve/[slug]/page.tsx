@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, Check, MapPin, Phone } from "lucide-react";
 import { PageHero } from "@/components/layout/page-hero";
 import { Container, Section, SectionHeading } from "@/components/layout/section";
-import { ServiceIcon } from "@/components/brand/service-icon";
 import { EnquirySection } from "@/components/sections/enquiry-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import { CtaBand } from "@/components/sections/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
-import { ctaGold, ctaOutlineLight } from "@/components/ui/cta";
+import { ctaSolid, ctaOnDark, ctaOutlineLight } from "@/components/ui/cta";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { areaMedia, serviceMedia } from "@/content/products";
 import { areas, getArea, services, site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -86,9 +87,10 @@ export default async function AreaPage({
         eyebrow={area.region}
         title={`Custom curtains & soft furnishings in ${area.name}`}
         lead={area.blurb}
+        image={areaMedia[area.slug]}
         actions={
           <>
-            <Link href="/contact" className={ctaGold("lg")}>
+            <Link href="/contact" className={ctaOnDark("lg")}>
               Free Measure &amp; Quote
               <ArrowRight aria-hidden />
             </Link>
@@ -177,19 +179,19 @@ export default async function AreaPage({
                 </h3>
                 <ol className="mt-4 space-y-3 text-sm text-navy-900/80">
                   <li className="flex gap-3">
-                    <span className="font-heading font-semibold text-gold-600">
+                    <span className="font-heading font-semibold text-gold-700">
                       1
                     </span>
                     Call or send the form with your suburb and what you need.
                   </li>
                   <li className="flex gap-3">
-                    <span className="font-heading font-semibold text-gold-600">
+                    <span className="font-heading font-semibold text-gold-700">
                       2
                     </span>
                     We book a measure, or work from your sizes if you have them.
                   </li>
                   <li className="flex gap-3">
-                    <span className="font-heading font-semibold text-gold-600">
+                    <span className="font-heading font-semibold text-gold-700">
                       3
                     </span>
                     You get a written quote. Nothing is made until you approve
@@ -198,7 +200,7 @@ export default async function AreaPage({
                 </ol>
               </div>
 
-              <Link href="/contact" className={ctaGold("md", "mt-8 w-full")}>
+              <Link href="/contact" className={ctaSolid("md", "mt-8 w-full")}>
                 Book a free measure
               </Link>
             </div>
@@ -213,32 +215,41 @@ export default async function AreaPage({
             eyebrow="Services"
             title={`What we make for ${area.name}`}
           />
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s) => (
-              <li key={s.slug}>
-                <Link
-                  href={`/services/${s.slug}`}
-                  className="group flex h-full flex-col rounded-2xl border border-border bg-white p-6 transition-colors hover:border-gold-300"
-                >
-                  <span className="flex size-11 items-center justify-center rounded-lg bg-navy-950 text-gold-400">
-                    <ServiceIcon icon={s.icon} className="size-5" />
-                  </span>
-                  <span className="mt-4 font-heading text-lg font-semibold text-navy-950 transition-colors group-hover:text-gold-600">
-                    {s.name} in {area.name}
-                  </span>
-                  <span className="mt-2.5 flex-1 text-sm leading-relaxed text-muted-foreground">
-                    {s.summary}
-                  </span>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-navy-900">
-                    View details
-                    <ArrowRight
-                      className="size-4 transition-transform group-hover:translate-x-0.5"
+          {/* Photographic tiles, not icon cards (§2.1.2). */}
+          <ul className="mt-10 grid gap-0.5 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((s) => {
+              const tile = serviceMedia[s.slug]?.hero;
+              return (
+                <li key={s.slug}>
+                  <Link
+                    href={`/services/${s.slug}`}
+                    className="group relative flex aspect-[3/2] flex-col justify-end overflow-hidden bg-ink p-6"
+                  >
+                    {tile && (
+                      <Image
+                        src={tile.src}
+                        alt={tile.alt}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        placeholder="blur"
+                        blurDataURL={tile.blurDataURL}
+                        className="object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.04]"
+                      />
+                    )}
+                    <span
                       aria-hidden
+                      className="absolute inset-0 bg-[linear-gradient(to_top,rgba(12,23,41,0.9),rgba(12,23,41,0.25)_60%,transparent)]"
                     />
-                  </span>
-                </Link>
-              </li>
-            ))}
+                    <span className="relative font-display text-lg text-white">
+                      {s.name} in {area.name}
+                    </span>
+                    <span className="relative mt-2 text-sm leading-relaxed text-white/75">
+                      {s.summary}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </Container>
       </Section>

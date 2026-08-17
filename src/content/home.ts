@@ -14,7 +14,6 @@ export const hero = {
   sub: "Curtains, blinds, soft furnishings and upholstery — cut and sewn in our Penrith workroom, delivered across Sydney.",
   primaryCta: { label: "Request a quote", href: "/contact" },
   secondaryCta: { label: "See our work", href: "#work" },
-  scrollCue: "Scroll",
 } as const;
 
 /**

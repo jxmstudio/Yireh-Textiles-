@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
 import { PageHero } from "@/components/layout/page-hero";
@@ -9,9 +10,11 @@ import { ClientStrip } from "@/components/sections/client-strip";
 import { Process } from "@/components/sections/process";
 import { EnquirySection } from "@/components/sections/enquiry-section";
 import { CtaBand } from "@/components/sections/cta-band";
+import { PhotoBand } from "@/components/shared/photo-band";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ctaOnDark, ctaOutlineLight } from "@/components/ui/cta";
 import { breadcrumbSchema } from "@/lib/schema";
+import { serviceMedia } from "@/content/products";
 import { differentiators, services, site, stats } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -110,6 +113,19 @@ export default function AboutPage() {
 
             {/* Name meaning */}
             <div>
+              {/* A photograph, not a card stack (§2.1.2). */}
+              <div className="relative mb-6 aspect-[3/2] overflow-hidden rounded-2xl bg-ink">
+                <Image
+                  src={images.workroom.src}
+                  alt={images.workroom.alt}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                  placeholder="blur"
+                  blurDataURL={images.workroom.blurDataURL}
+                  className="object-cover"
+                />
+              </div>
+
               <div className="rounded-2xl border border-border bg-sand p-7 sm:p-8">
                 <WovenYMark className="size-14" />
                 <h2 className="mt-6 font-heading text-xl font-semibold text-navy-950">
@@ -154,7 +170,19 @@ export default function AboutPage() {
 
       <ClientStrip />
 
-      {/* Capability summary */}
+      {/* The floor itself, photographed — not described. */}
+      <PhotoBand
+        eyebrow="The workroom"
+        heading="Ten years of making, in one room."
+        images={[
+          images.stepMeasure,
+          images.stepCut,
+          images.stepFinish,
+          images.productionFloor,
+        ]}
+      />
+
+      {/* Capability summary — photographic tiles, not icon cards (§2.1.2). */}
       <Section tone="sand">
         <Container>
           <SectionHeading
@@ -162,29 +190,44 @@ export default function AboutPage() {
             title="What our floor can actually do"
             description="Five production capabilities under one roof, which means fewer handoffs, fewer suppliers to chase, and one person to call when you need an update."
           />
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s) => (
-              <li key={s.slug}>
-                <Link
-                  href={`/services/${s.slug}`}
-                  className="group flex h-full flex-col rounded-xl border border-border bg-white p-6 transition-colors hover:border-gold-300"
-                >
-                  <h3 className="font-heading text-lg font-semibold text-navy-950 transition-colors group-hover:text-gold-600">
-                    {s.name}
-                  </h3>
-                  <p className="mt-2.5 flex-1 text-sm leading-relaxed text-muted-foreground">
-                    {s.summary}
-                  </p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-navy-900">
-                    Learn more
-                    <ArrowRight
-                      className="size-4 transition-transform group-hover:translate-x-0.5"
+          <ul className="mt-10 grid gap-0.5 sm:grid-cols-2 lg:grid-cols-5">
+            {services.map((s) => {
+              const tile = serviceMedia[s.slug]?.hero;
+              return (
+                <li key={s.slug}>
+                  <Link
+                    href={`/services/${s.slug}`}
+                    className="group relative flex aspect-[4/5] flex-col justify-end overflow-hidden bg-ink p-5"
+                  >
+                    {tile && (
+                      <Image
+                        src={tile.src}
+                        alt={tile.alt}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                        placeholder="blur"
+                        blurDataURL={tile.blurDataURL}
+                        className="object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.04]"
+                      />
+                    )}
+                    <span
                       aria-hidden
+                      className="absolute inset-0 bg-[linear-gradient(to_top,rgba(12,23,41,0.88),rgba(12,23,41,0.2)_55%,transparent)]"
                     />
-                  </span>
-                </Link>
-              </li>
-            ))}
+                    <span className="relative font-display text-lg leading-snug text-white">
+                      {s.name}
+                    </span>
+                    <span className="relative mt-1.5 inline-flex items-center gap-1.5 text-xs font-medium tracking-wide text-white/70 transition-colors group-hover:text-white">
+                      Learn more
+                      <ArrowRight
+                        className="size-3.5 transition-transform group-hover:translate-x-0.5"
+                        aria-hidden
+                      />
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </Container>
       </Section>

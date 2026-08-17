@@ -102,16 +102,6 @@ export function WorkroomHero() {
         </div>
       </div>
 
-      {/* Thin scroll cue, bottom right */}
-      <div
-        aria-hidden="true"
-        className="absolute right-5 bottom-8 hidden items-center gap-3 sm:right-8 lg:right-12 lg:flex"
-      >
-        <span className="text-[0.65rem] tracking-[0.28em] text-white/60 uppercase">
-          {hero.scrollCue}
-        </span>
-        <span className="h-12 w-px bg-gradient-to-b from-[var(--gold-500)] to-transparent" />
-      </div>
     </section>
   );
 }

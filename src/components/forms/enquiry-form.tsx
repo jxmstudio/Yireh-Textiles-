@@ -13,6 +13,7 @@ import {
   contactPreferences,
   enquirySchema,
   enquiryTopics,
+  submitEnquiry,
   type EnquiryInput,
 } from "@/lib/enquiry";
 import { site } from "@/lib/site";
@@ -77,16 +78,11 @@ export function EnquiryForm({
 
   async function onSubmit(values: EnquiryInput) {
     try {
-      const res = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const body = (await res.json()) as { ok: boolean; error?: string };
+      const result = await submitEnquiry(values);
 
-      if (!res.ok || !body.ok) {
+      if (!result.ok) {
         toast.error(
-          body.error ??
+          result.error ??
             `Something went wrong. Please call ${site.phone.display}.`,
         );
         return;

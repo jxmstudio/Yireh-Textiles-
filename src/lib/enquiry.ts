@@ -45,3 +45,36 @@ export const enquirySchema = z.object({
 });
 
 export type EnquiryInput = z.infer<typeof enquirySchema>;
+
+/**
+ * JXM Forms — our own form backend, replacing the previous Resend API route.
+ * Spam filtering happens on their side; the key is public by design (it only
+ * identifies the site, like a Formspree form ID).
+ */
+const JXM_ENDPOINT = "https://jxm-forms.vercel.app/api/submit/yirehtextiles";
+const JXM_API_KEY = "ll1FEKXmhckiWS_drlNKrgvAPdnzCYm9";
+
+export async function submitEnquiry(
+  values: EnquiryInput,
+): Promise<{ ok: boolean; error?: string }> {
+  const { company, ...fields } = values;
+  const res = await fetch(JXM_ENDPOINT, {
+    method: "POST",
+    headers: { "content-type": "application/json", "x-api-key": JXM_API_KEY },
+    body: JSON.stringify({
+      ...fields,
+      // Always present — the backend uses it as the Reply-To.
+      email: fields.email ?? "",
+      // Bot trap. Real users never see the field, so it stays empty.
+      _gotcha: company ?? "",
+    }),
+  });
+  const body = (await res.json().catch(() => ({}))) as {
+    ok?: boolean;
+    error?: string;
+  };
+  if (!res.ok || body.ok !== true) {
+    return { ok: false, error: body.error };
+  }
+  return { ok: true };
+}

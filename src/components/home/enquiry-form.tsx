@@ -4,7 +4,7 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronDown, Loader2 } from "lucide-react";
-import { enquirySchema, type EnquiryInput } from "@/lib/enquiry";
+import { enquirySchema, submitEnquiry, type EnquiryInput } from "@/lib/enquiry";
 import { cn } from "@/lib/utils";
 
 /**
@@ -12,8 +12,8 @@ import { cn } from "@/lib/utils";
  * with zod + react-hook-form on the client and again on the server, with a
  * honeypot for spam. The success state replaces the form in place — no redirect.
  *
- * Posts to the existing /api/enquiry route, which validates, rate-limits and
- * delivers through Resend to info@yirehstitchtech.com.
+ * Posts to the JXM Forms backend (see submitEnquiry in lib/enquiry), which
+ * stores the enquiry, filters spam and emails it on with the sender as Reply-To.
  */
 
 /** Product interest options, per the questionnaire. */
@@ -84,15 +84,10 @@ export function EnquiryForm({ className }: { className?: string }) {
   const onSubmit = handleSubmit(async (values) => {
     setServerError(null);
     try {
-      const res = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || data?.ok === false) {
+      const result = await submitEnquiry(values);
+      if (!result.ok) {
         setServerError(
-          data?.error ?? "Something went wrong. Please call us instead.",
+          result.error ?? "Something went wrong. Please call us instead.",
         );
         return;
       }

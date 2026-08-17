@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
-import { Menu, Phone } from "lucide-react";
+import { Menu } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -52,7 +52,7 @@ export function SiteHeader() {
         overlayCapable ? "fixed" : "sticky",
         transparent
           ? "bg-transparent"
-          : "border-b border-[var(--gold-500)]/60 bg-linen/95 backdrop-blur supports-[backdrop-filter]:bg-linen/85",
+          : "border-b border-dashed border-[var(--gold-500)]/70 bg-linen/95 backdrop-blur supports-[backdrop-filter]:bg-linen/85",
       )}
     >
       <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between gap-6 px-5 sm:px-8 lg:px-12">
@@ -60,7 +60,12 @@ export function SiteHeader() {
           <NavLockup tone={tone} />
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-7 lg:flex">
+        {/*
+          Nav as an atelier would set it: small caps, wide tracking, and a
+          running-stitch underline (dashed gold) that sews itself in on hover
+          and stays put on the active page. No icons anywhere in this row.
+        */}
+        <nav aria-label="Main" className="hidden items-center gap-8 lg:flex">
           {nav
             .filter((item) => item.href !== "/")
             .map((item) => (
@@ -69,43 +74,80 @@ export function SiteHeader() {
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
                 className={cn(
-                  "text-sm font-medium transition-colors",
+                  "group relative pb-1 text-[0.72rem] font-medium tracking-[0.18em] uppercase transition-colors",
                   transparent
-                    ? "text-white/85 hover:text-white"
+                    ? "text-white/80 hover:text-white"
                     : "text-stone-600 hover:text-ink",
                   isActive(item.href) &&
                     (transparent ? "text-white" : "text-ink"),
                 )}
               >
                 {item.label}
+                <span
+                  aria-hidden
+                  className={cn(
+                    "absolute inset-x-0 bottom-0 origin-left scale-x-0 border-b border-dashed transition-transform duration-300 group-hover:scale-x-100",
+                    transparent
+                      ? "border-[var(--gold-200)]"
+                      : "border-[var(--gold-600)]",
+                    isActive(item.href) && "scale-x-100",
+                  )}
+                />
               </Link>
             ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-5">
+          {/* The phone set as type, not an icon — labelled like a workroom card. */}
           <a
             href={site.phone.href}
-            className={cn(
-              "hidden items-center gap-2 text-sm font-medium transition-colors md:flex",
-              transparent
-                ? "text-white/85 hover:text-white"
-                : "text-stone-600 hover:text-ink",
-            )}
+            className="group hidden text-right leading-none md:block"
           >
-            <Phone className="size-4" aria-hidden />
-            {site.phone.display}
+            <span
+              className={cn(
+                "block text-[0.55rem] font-medium tracking-[0.3em] uppercase",
+                transparent
+                  ? "text-[var(--gold-200)]"
+                  : "text-[var(--gold-600)]",
+              )}
+            >
+              Penrith workroom
+            </span>
+            <span
+              className={cn(
+                "mt-1.5 block font-display text-[1.05rem] tracking-[0.02em] transition-colors",
+                transparent
+                  ? "text-white/90 group-hover:text-white"
+                  : "text-ink/85 group-hover:text-ink",
+              )}
+            >
+              {site.phone.display}
+            </span>
           </a>
 
-          {/* Ink fill, never gold — gold is a line, not a fill (§2.1.4) */}
+          {/*
+            Ink fill, never gold — gold is a line, not a fill (§2.1.4).
+            The line here is a dashed inner seam, so the button reads as a
+            stitched garment label rather than a software button.
+          */}
           <Link
             href="/contact"
             className={cn(
-              "hidden h-11 items-center px-6 text-sm font-medium tracking-wide transition-colors sm:inline-flex",
+              "relative hidden h-11 items-center px-6 text-[0.7rem] font-medium tracking-[0.18em] uppercase transition-colors sm:inline-flex",
               transparent
                 ? "bg-linen text-ink hover:bg-white"
                 : "bg-ink text-linen hover:bg-[var(--indigo-700)]",
             )}
           >
+            <span
+              aria-hidden
+              className={cn(
+                "pointer-events-none absolute inset-1 border border-dashed",
+                transparent
+                  ? "border-ink/35"
+                  : "border-[var(--gold-400)]/70",
+              )}
+            />
             Request a quote
           </Link>
 
@@ -133,7 +175,7 @@ export function SiteHeader() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setOpen(false)}
-                      className="border-b border-stone-300/50 py-4 font-display text-2xl text-ink"
+                      className="border-b border-dashed border-stone-400/50 py-4 font-display text-2xl text-ink"
                     >
                       {item.label}
                     </Link>
@@ -159,15 +201,18 @@ export function SiteHeader() {
                   <Link
                     href="/contact"
                     onClick={() => setOpen(false)}
-                    className="inline-flex h-12 items-center justify-center bg-ink px-6 text-sm font-medium text-linen"
+                    className="relative inline-flex h-12 items-center justify-center bg-ink px-6 text-[0.7rem] font-medium tracking-[0.18em] uppercase text-linen"
                   >
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-1 border border-dashed border-[var(--gold-400)]/70"
+                    />
                     Request a quote
                   </Link>
                   <a
                     href={site.phone.href}
-                    className="inline-flex h-12 items-center justify-center border border-[var(--gold-500)] px-6 text-sm font-medium text-ink"
+                    className="inline-flex h-12 items-center justify-center border border-dashed border-[var(--gold-500)] px-6 font-display text-base text-ink"
                   >
-                    <Phone className="mr-2 size-4" aria-hidden />
                     {site.phone.display}
                   </a>
                   <p className="mt-1 text-center text-xs text-stone-600">

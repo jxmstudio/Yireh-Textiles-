@@ -61,9 +61,9 @@ export const production = {
 
 export const featured = {
   eyebrow: "Selected work",
-  title: "A whole-home curtain and soft furnishing fit-out",
-  meta: "Sheers, blockout curtains, cushions and upholstery · Sydney",
-  body: "Eleven windows measured on site, made to drop in our workroom and installed in a day. The sheers were specified to hold their shape in afternoon sun without losing the light.",
+  title: "An armchair rebuilt, frame to final cushion",
+  meta: "Reupholstery in chinoiserie weave and velvet · Penrith workroom",
+  body: "Stripped back and re-foamed, then covered in a navy chinoiserie weave with the seat cushion piped in gold velvet — one commission among the bouclé daybeds and commercial seating runs crossing the same benches that week.",
   link: { label: "See the full gallery", href: "#work" },
   image: images.projectMain,
   details: [images.projectDetail1, images.projectDetail2, images.projectDetail3],

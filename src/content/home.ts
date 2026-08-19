@@ -11,7 +11,7 @@ import { images } from "./images";
 export const hero = {
   eyebrow: "Sydney · Est. 2015",
   headline: "We make what other brands put their name on.",
-  sub: "Curtains, blinds, soft furnishings and upholstery — cut and sewn in our Penrith workroom, delivered across Sydney.",
+  sub: "Curtains, blinds, soft furnishings and upholstery — cut and sewn in our own workroom, delivered across Sydney.",
   primaryCta: { label: "Request a quote", href: "/contact" },
   secondaryCta: { label: "See our work", href: "#work" },
 } as const;
@@ -37,10 +37,10 @@ export const credibility = {
 
 export const intro = {
   eyebrow: "The workroom",
-  heading: "Ten years of trade work, in one room in Penrith.",
+  heading: "Ten years of trade work, in one Sydney workroom.",
   body: [
     "Most of what leaves this workroom carries somebody else's label. Furniture brands, apparel labels, designers and fit-out companies send us the work they cannot afford to get wrong, and they keep sending it — trade work is unsentimental that way.",
-    "Everything is cut, sewn, finished and checked under one roof in Western Sydney. No offshore lead times you cannot control, no middleman, and the person who cuts your fabric is the person who sews it.",
+    "Everything is cut, sewn, finished and checked under one roof in Sydney. No offshore lead times you cannot control, no middleman, and the person who cuts your fabric is the person who sews it.",
   ],
   link: { label: "More about the workroom", href: "/about" },
   image: images.workroom,
@@ -62,7 +62,7 @@ export const production = {
 export const featured = {
   eyebrow: "Selected work",
   title: "An armchair rebuilt, frame to final cushion",
-  meta: "Reupholstery in chinoiserie weave and velvet · Penrith workroom",
+  meta: "Reupholstery in chinoiserie weave and velvet · our Sydney workroom",
   body: "Stripped back and re-foamed, then covered in a navy chinoiserie weave with the seat cushion piped in gold velvet — one commission among the bouclé daybeds and commercial seating runs crossing the same benches that week.",
   link: { label: "See the full gallery", href: "#work" },
   image: images.projectMain,

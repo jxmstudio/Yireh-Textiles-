@@ -7,7 +7,7 @@
 export const site = {
   name: "Yireh Textiles",
   legalName: "Yireh Textiles",
-  tagline: "Soft furnishings and curtains, made in Western Sydney",
+  tagline: "Soft furnishings and curtains, made in Sydney",
   domain: "yirehstitchtech.com",
   url: "https://www.yirehstitchtech.com",
   email: "info@yirehstitchtech.com",
@@ -84,7 +84,7 @@ export const services: Service[] = [
     metaDescription:
       "Custom-made curtains, privacy curtains, sheers and Roman blinds manufactured in Penrith and installed across Sydney. Ten years of trade and commercial work.",
     summary:
-      "Made-to-measure curtains, sheers, privacy curtains and Roman blinds, sewn in our Penrith workroom.",
+      "Made-to-measure curtains, sheers, privacy curtains and Roman blinds, sewn in our own Sydney workroom.",
     intro: [
       "Curtains are where we started, and they are still the bulk of what leaves our workroom each week. Every pair is cut and sewn to the exact drop of your window rather than trimmed down from a standard size, which is the difference between a curtain that hangs properly and one that never quite sits right.",
       "We work directly with interior designers, builders, blind retailers and furniture companies who need a workroom they can hand a job to and not think about again. We also take on direct residential and commercial jobs across Sydney.",
@@ -335,7 +335,7 @@ export const clients = [
 export const differentiators = [
   {
     title: "We manufacture, we don't resell",
-    body: "Everything is made in our own Penrith facility. No middleman, no offshore lead times you cannot control, and one point of contact from quote to delivery.",
+    body: "Everything is made in our own Sydney facility. No middleman, no offshore lead times you cannot control, and one point of contact from quote to delivery.",
   },
   {
     title: "Ten years of trade production",
@@ -380,7 +380,7 @@ export const processSteps = [
   },
   {
     step: "04",
-    title: "Manufactured in Penrith",
+    title: "Manufactured in our workroom",
     body: "Your job runs through our own workroom, checked at each stage rather than only at the end.",
   },
   {
@@ -549,10 +549,14 @@ export const faqs = [
 /*  Navigation                                                                 */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * "Areas We Serve" is deliberately absent: the client asked for suburbs to be
+ * kept off the site chrome (Aug 2026). The area pages stay live for search and
+ * remain linked from the footer's Company column while that's decided.
+ */
 export const nav = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
-  { href: "/areas-we-serve", label: "Areas We Serve" },
   { href: "/contact", label: "Contact" },
 ];

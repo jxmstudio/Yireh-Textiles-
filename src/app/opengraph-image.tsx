@@ -23,30 +23,9 @@ export default function OpengraphImage() {
         {/* Top: mark + wordmark */}
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <svg width="64" height="64" viewBox="0 0 64 64">
-            <path
-              d="M16 14 L32 34"
-              stroke="#ffffff"
-              strokeWidth="7.5"
-              strokeLinecap="round"
-            />
-            <path
-              d="M9 22 L55 22"
-              stroke="#c9a227"
-              strokeWidth="6.5"
-              strokeLinecap="round"
-            />
-            <path
-              d="M48 14 L32 34"
-              stroke="#ffffff"
-              strokeWidth="7.5"
-              strokeLinecap="round"
-            />
-            <path
-              d="M32 33 L32 51"
-              stroke="#ffffff"
-              strokeWidth="7.5"
-              strokeLinecap="round"
-            />
+            <rect x="5" y="13" width="45" height="10" rx="2" fill="#e8a2ab" />
+            <rect x="14" y="27" width="38" height="10" rx="2" fill="#d47f8b" />
+            <rect x="23" y="41" width="32" height="10" rx="2" fill="#c06471" />
           </svg>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div
@@ -63,7 +42,7 @@ export default function OpengraphImage() {
               style={{
                 fontSize: 15,
                 letterSpacing: 10,
-                color: "#d9b85c",
+                color: "#d47f8b",
                 marginTop: 6,
               }}
             >
@@ -91,7 +70,7 @@ export default function OpengraphImage() {
               maxWidth: 900,
             }}
           >
-            Custom curtains &amp; soft furnishings, made in Western Sydney
+            Custom curtains &amp; soft furnishings, made in Sydney
           </div>
           <div
             style={{
@@ -117,7 +96,7 @@ export default function OpengraphImage() {
           }}
         >
           <div style={{ display: "flex" }}>
-            Penrith, NSW · Servicing all of Sydney
+            Servicing all of Sydney
           </div>
           <div style={{ display: "flex", color: "#d9b85c", fontWeight: 600 }}>
             {site.phone.display}

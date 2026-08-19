@@ -5,6 +5,7 @@ import {
   DrapeYMark,
   Logo,
   NeedleArchMark,
+  ThreadLinesMark,
   WovenYMark,
 } from "@/components/brand/logo";
 
@@ -17,24 +18,32 @@ export const metadata: Metadata = {
 const concepts = [
   {
     id: "A",
-    name: "Woven Y",
+    name: "Three Threads",
     status: "Currently live on the site",
-    Mark: WovenYMark,
-    idea: "A monogram Y built from three threads, with a gold weft passing over one arm and under the other.",
-    why: "The over-and-under is a literal weave, so the mark reads as textile at any size without needing a picture of fabric. It is the strongest of the three at favicon size and the easiest to embroider onto a label.",
+    Mark: ThreadLinesMark,
+    idea: "Three bold thread lines in rose gold, each stepped in from the last — set heavy and tight, to your sketch.",
+    why: "Three threads for the three sides of the workroom — curtains, soft furnishings and upholstery — and every one of them starts as a single line of thread. The heavy weights keep it legible from favicon size up to signage.",
   },
   {
     id: "B",
+    name: "Woven Y",
+    status: "Previous mark",
+    Mark: WovenYMark,
+    idea: "A monogram Y built from three threads, with a gold weft passing over one arm and under the other.",
+    why: "The over-and-under is a literal weave, so the mark reads as textile at any size without needing a picture of fabric.",
+  },
+  {
+    id: "C",
     name: "Needle & Arch",
-    status: "Alternative",
+    status: "Archived",
     Mark: NeedleArchMark,
     idea: "An arch drawn as a single stroke, with the eye of a needle at the apex and a gold thread running through it.",
     why: "Closest to the meaning of the name — Genesis 22:14, \"on the mountain of the Lord it will be provided.\" The needle's eye ties the reference to the trade without being literal about it.",
   },
   {
-    id: "C",
+    id: "D",
     name: "Drape Y",
-    status: "Alternative",
+    status: "Archived",
     Mark: DrapeYMark,
     idea: "Two curtain drapes sweeping in to form a Y, hung beneath a gold pelmet line.",
     why: "The most immediately readable as curtains specifically. Best choice if window furnishings are the only thing the brand should signal.",
@@ -44,7 +53,8 @@ const concepts = [
 const palette = [
   { name: "Navy 950", hex: "#08182c", role: "Headers, footer, hero panels" },
   { name: "Navy 900", hex: "#0f2440", role: "Primary buttons, headings" },
-  { name: "Navy 700", hex: "#244676", role: "Gradients, secondary surfaces" },
+  { name: "Rose Gold 400", hex: "#d47f8b", role: "The mark and lockup tagline" },
+  { name: "Rose Gold 500", hex: "#c06471", role: "The mark, deeper metal tone" },
   { name: "Gold 500", hex: "#c9a227", role: "Accent rules, primary CTA" },
   { name: "Gold 300", hex: "#e8d08a", role: "Accents on dark backgrounds" },
   { name: "Sand", hex: "#f8f5ef", role: "Alternate section background" },
@@ -61,7 +71,7 @@ export default function BrandPage() {
         ]}
         eyebrow="For review"
         title="Logo concepts for Yireh Textiles"
-        lead="Three directions, all built around the meaning of the name — Yireh, “the Lord provides” — with a textile reference in the mark. Tell us which one you want and we will refine it from there."
+        lead="The live mark is the three rose-gold thread lines you asked for. The earlier concepts stay here for reference — say the word and we can adjust the weight, spacing or shade of the lines."
       />
 
       <Section>

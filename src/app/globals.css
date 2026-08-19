@@ -54,6 +54,12 @@
   --color-gold-600: var(--gold-600);
   --color-gold-700: var(--gold-700);
 
+  --color-rose-200: var(--rose-200);
+  --color-rose-300: var(--rose-300);
+  --color-rose-400: var(--rose-400);
+  --color-rose-500: var(--rose-500);
+  --color-rose-600: var(--rose-600);
+
   --color-sand: var(--sand);
   --color-sand-dark: var(--sand-dark);
 
@@ -129,6 +135,13 @@
   --gold-500: #c8a045;
   --gold-600: #a8851d;
   --gold-700: #856717;
+
+  /* Rose gold — the mark (client-requested, Aug 2026) */
+  --rose-200: #f2c4c9;
+  --rose-300: #e39aa4;
+  --rose-400: #d47f8b;
+  --rose-500: #c06471;
+  --rose-600: #9d4c59;
 
   --sand: #f8f5ef;
   --sand-dark: #ece5d8;

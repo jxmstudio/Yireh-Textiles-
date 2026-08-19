@@ -5,7 +5,7 @@ import { ArrowRight, Phone } from "lucide-react";
 import { PageHero } from "@/components/layout/page-hero";
 import { images } from "@/content/images";
 import { Container, Section, SectionHeading } from "@/components/layout/section";
-import { WovenYMark } from "@/components/brand/logo";
+import { ThreadLinesMark } from "@/components/brand/logo";
 import { ClientStrip } from "@/components/sections/client-strip";
 import { Process } from "@/components/sections/process";
 import { EnquirySection } from "@/components/sections/enquiry-section";
@@ -20,7 +20,7 @@ import { differentiators, services, site, stats } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Yireh Textiles has manufactured curtains, soft furnishings and garments from Penrith, Western Sydney for over ten years, supplying furniture brands, apparel labels and designers.",
+    "Yireh Textiles has manufactured curtains, soft furnishings and garments in Sydney for over ten years, working all over Sydney for furniture brands, apparel labels and designers.",
   alternates: { canonical: "/about" },
 };
 
@@ -53,8 +53,8 @@ export default function AboutPage() {
         image={images.heroPoster}
         trail={trail}
         eyebrow="About Yireh Textiles"
-        title="Ten years of manufacturing, from a workroom in Penrith"
-        lead="We are a Western Sydney manufacturer, not a reseller. Everything we quote is made by our own team, on our own floor, to a standard that trade clients have kept coming back to for a decade."
+        title="Ten years of manufacturing, one Sydney workroom"
+        lead="We are a manufacturer, not a reseller, and we work all over Sydney. Everything we quote is made by our own team, on our own floor, to a standard that trade clients have kept coming back to for a decade."
         actions={
           <>
             <Link href="/contact" className={ctaOnDark("lg")}>
@@ -127,7 +127,7 @@ export default function AboutPage() {
               </div>
 
               <div className="rounded-2xl border border-border bg-sand p-7 sm:p-8">
-                <WovenYMark className="size-14" />
+                <ThreadLinesMark className="size-14" />
                 <h2 className="mt-6 font-heading text-xl font-semibold text-navy-950">
                   The name
                 </h2>
@@ -138,10 +138,10 @@ export default function AboutPage() {
                   work: provide properly, and the rest follows.
                 </p>
                 <p className="mt-4 text-sm leading-relaxed text-navy-900/80">
-                  The mark is a monogram <strong>Y</strong> woven from three
-                  threads, with a gold weft passing over one arm and under the
-                  other — the same over-and-under that holds every piece of
-                  cloth we make together.
+                  The mark is <strong>three threads</strong> laid down in rose
+                  gold — one each for the curtains, soft furnishings and
+                  upholstery that leave the workroom, every one of them starting
+                  from a single line of thread.
                 </p>
               </div>
 

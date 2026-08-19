@@ -35,7 +35,7 @@ export default function ServicesPage() {
         trail={trail}
         eyebrow="What we make"
         title="Everything we manufacture, in one place"
-        lead="Five capabilities, one production floor in Penrith. Most of our clients start with one and end up using two or three."
+        lead="Five capabilities, one Sydney production floor. Most of our clients start with one and end up using two or three."
         actions={
           <>
             <Link href="/contact" className={ctaOnDark("lg")}>

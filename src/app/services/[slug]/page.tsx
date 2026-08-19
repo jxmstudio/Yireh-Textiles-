@@ -12,7 +12,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { ctaSolid, ctaOnDark, ctaOutlineLight } from "@/components/ui/cta";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 import { serviceMedia } from "@/content/products";
-import { areas, getService, services, site } from "@/lib/site";
+import { getService, services, site } from "@/lib/site";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -177,14 +177,14 @@ export default async function ServicePage({
         </Container>
       </Section>
 
-      {/* Areas */}
+      {/* Service area — one line, no suburb chips (client request, Aug 2026) */}
       <Section tone="sand" className="py-14 sm:py-16">
         <Container>
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <SectionHeading
               eyebrow="Service area"
-              title={`${service.name} across Greater Sydney`}
-              description={`We manufacture in Penrith and cover the whole of Sydney for measuring, delivery and installation.`}
+              title={`${service.name} across all of Sydney`}
+              description="We manufacture in our own Sydney workroom and cover the whole of Sydney for measuring, delivery and installation."
             />
             <Link
               href="/areas-we-serve"
@@ -194,18 +194,6 @@ export default async function ServicePage({
               <ArrowRight className="size-4" aria-hidden />
             </Link>
           </div>
-          <ul className="mt-8 flex flex-wrap gap-2">
-            {areas.map((a) => (
-              <li key={a.slug}>
-                <Link
-                  href={`/areas-we-serve/${a.slug}`}
-                  className="inline-flex rounded-full border border-border bg-white px-4 py-2 text-sm text-navy-900/80 transition-colors hover:border-gold-300 hover:text-navy-950"
-                >
-                  {a.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
         </Container>
       </Section>
 

@@ -8,7 +8,7 @@ import { FaqSection } from "@/components/sections/faq-section";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ctaOnDark, ctaOutlineLight } from "@/components/ui/cta";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
-import { areas, faqs, services, site } from "@/lib/site";
+import { faqs, services, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact & Quotes",
@@ -184,18 +184,9 @@ export default function ContactPage() {
                   Areas we cover
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  We measure, deliver and install across Greater Sydney.
+                  All of Sydney. We measure, deliver and install wherever the
+                  job is.
                 </p>
-                <ul className="mt-4 flex flex-wrap gap-1.5">
-                  {areas.map((a) => (
-                    <li
-                      key={a.slug}
-                      className="rounded-full border border-border px-3 py-1 text-xs text-navy-900/70"
-                    >
-                      {a.name}
-                    </li>
-                  ))}
-                </ul>
               </div>
             </aside>
           </div>

@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { WovenYMark } from "./logo";
+import { ThreadLinesMark } from "./logo";
 
 /**
  * The wordmark, sized for prominence.
@@ -12,8 +12,8 @@ import { WovenYMark } from "./logo";
  *   hero    96px on mobile, up to 200px on desktop
  *   footer  oversized, used as a graphic element rather than a logo
  *
- * The mark itself is the Woven Y from ./logo. Which of the three concepts wins
- * is the client's call — /brand presents them.
+ * The mark itself is the Three Threads mark from ./logo — the client's chosen
+ * direction (three bold rose-gold lines). /brand keeps the earlier concepts.
  */
 
 type Tone = "onLight" | "onDark";
@@ -28,7 +28,10 @@ export function NavLockup({
   return (
     <span className={cn("flex items-center gap-3", className)}>
       {/* 40px mark — the floor the client asked for */}
-      <WovenYMark tone={tone} className="h-10 w-10 shrink-0 md:h-11 md:w-11" />
+      <ThreadLinesMark
+        tone={tone}
+        className="h-10 w-10 shrink-0 md:h-11 md:w-11"
+      />
       <span className="flex flex-col leading-none">
         <span
           className={cn(
@@ -41,7 +44,7 @@ export function NavLockup({
         <span
           className={cn(
             "mt-1.5 text-[0.6rem] font-medium tracking-[0.34em]",
-            tone === "onDark" ? "text-[var(--gold-200)]" : "text-[var(--gold-600)]",
+            tone === "onDark" ? "text-[var(--rose-200)]" : "text-[var(--rose-600)]",
           )}
         >
           TEXTILES
@@ -65,7 +68,7 @@ export function HeroWordmark({ className }: { className?: string }) {
         Yireh
       </span>
       <span
-        className="mt-3 block font-medium text-[var(--gold-200)]"
+        className="mt-3 block font-medium text-[var(--rose-200)]"
         style={{
           fontSize: "clamp(0.75rem, 1.6vw, 1.25rem)",
           letterSpacing: "0.42em",

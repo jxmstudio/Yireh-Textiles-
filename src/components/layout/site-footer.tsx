@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { FooterWordmark } from "@/components/brand/wordmark";
-import { areas, services, site } from "@/lib/site";
+import { services, site } from "@/lib/site";
 
 /**
- * Footer (plan §3.11). Oversized wordmark as a graphic element, four columns,
- * suburb list for local SEO, gold 1px top rule.
+ * Footer (plan §3.11). Oversized wordmark as a graphic element, three columns,
+ * gold 1px top rule. The client asked for no suburb lists and no address
+ * outside the contact page (Aug 2026) — the area pages stay reachable through
+ * the Company column only.
  */
 
 const company = [
@@ -20,7 +22,7 @@ export function SiteFooter() {
   return (
     <footer className="relative overflow-hidden border-t border-[var(--gold-500)] bg-ink text-linen">
       <div className="mx-auto max-w-[1600px] px-5 pt-24 sm:px-8 lg:px-12 lg:pt-32">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           <div>
             <h2 className="eyebrow eyebrow-on-dark">Products</h2>
             <ul className="mt-5 space-y-3">
@@ -79,29 +81,9 @@ export function SiteFooter() {
                   className="mt-0.5 size-4 shrink-0 text-[var(--gold-500)]"
                   aria-hidden
                 />
-                <span>
-                  {site.address.suburb}, {site.address.region}
-                  <br />
-                  Serving all of Sydney
-                </span>
+                <span>Serving all of Sydney</span>
               </li>
               <li className="pt-1">{site.hours.display}</li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="eyebrow eyebrow-on-dark">Areas we serve</h2>
-            <ul className="mt-5 flex flex-wrap gap-x-3 gap-y-2">
-              {areas.map((a) => (
-                <li key={a.slug}>
-                  <Link
-                    href={`/areas-we-serve/${a.slug}`}
-                    className="text-sm text-linen/60 transition-colors hover:text-linen"
-                  >
-                    {a.name}
-                  </Link>
-                </li>
-              ))}
             </ul>
           </div>
         </div>
@@ -110,7 +92,7 @@ export function SiteFooter() {
           <p>
             © {new Date().getFullYear()} {site.legalName}. All rights reserved.
           </p>
-          <p>Custom curtains, blinds and soft furnishings · Penrith, NSW</p>
+          <p>Custom curtains, blinds and soft furnishings · Sydney</p>
         </div>
       </div>
 

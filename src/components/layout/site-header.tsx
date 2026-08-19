@@ -111,7 +111,7 @@ export function SiteHeader() {
                   : "text-[var(--gold-600)]",
               )}
             >
-              Penrith workroom
+              Sydney workroom
             </span>
             <span
               className={cn(

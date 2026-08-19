@@ -78,12 +78,13 @@ export function EnquirySection({
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-navy-950 text-gold-400">
                   <MapPin className="size-4.5" aria-hidden />
                 </span>
+                {/* No address here by client request — it lives on /contact only. */}
                 <span>
                   <span className="block text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                    Workroom
+                    Service area
                   </span>
                   <span className="mt-1 block text-sm font-medium text-navy-950">
-                    {site.address.suburb}, {site.address.region} {site.address.state}
+                    All of Sydney
                   </span>
                 </span>
               </li>

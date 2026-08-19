@@ -4,12 +4,13 @@ import { SectionLabel } from "@/components/shared/section-label";
 import { EnquiryForm } from "./enquiry-form";
 import { enquiry } from "@/content/home";
 import { images } from "@/content/images";
-import { areas, site } from "@/lib/site";
+import { site } from "@/lib/site";
 
 /**
  * Enquiry (plan §3.10). Split 6/6 on linen — form on white on the left, contact
- * card on the right with a tel: link, the inbox, the workroom location, hours
- * and a service-area line for local SEO.
+ * card on the right with a tel: link, the inbox, hours and a Sydney-wide
+ * service line. No suburbs or street address here by client request — the
+ * address lives on the contact page only.
  */
 export function EnquirySection() {
   return (
@@ -89,24 +90,12 @@ export function EnquirySection() {
                 <div>
                   <dt className="sr-only">Where we are</dt>
                   <dd className="text-[0.95rem] text-ink">
-                    {site.address.suburb}, {site.address.region} — serving all of
-                    Sydney
+                    Serving all of Sydney — we measure, deliver and install
+                    wherever the job is
                   </dd>
                 </div>
               </div>
             </dl>
-
-            <div className="mt-10 border-t border-stone-300/70 pt-6">
-              <p className="text-sm leading-relaxed text-stone-600">
-                <span className="text-stone-600/70">Measuring and installing across </span>
-                {areas.map((a, i) => (
-                  <span key={a.slug}>
-                    {a.name}
-                    {i < areas.length - 1 ? ", " : "."}
-                  </span>
-                ))}
-              </p>
-            </div>
           </div>
 
           <EnquiryForm className="mt-12" />

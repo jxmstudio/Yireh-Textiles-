@@ -3,10 +3,12 @@ import { cn } from "@/lib/utils";
 /**
  * Yireh Textiles identity.
  *
- * Concept: "Yireh" (Genesis 22:14, Jehovah-Jireh) means "the Lord provides".
- * The mark is a monogram Y built from three woven threads, with a gold weft
- * thread passing over one arm and under the other — a literal weave, and a
- * reference to provision being threaded through the work.
+ * "Yireh" (Genesis 22:14, Jehovah-Jireh) means "the Lord provides".
+ *
+ * Primary mark (client-directed, Aug 2026): three bold rose-gold thread lines,
+ * each stepped in from the last — three threads laid down, one for each side
+ * of the workroom. Heavy weights and tight spacing per the client's sketch.
+ * The earlier monogram concepts are kept below for the /brand archive.
  */
 
 type MarkProps = {
@@ -17,7 +19,48 @@ type MarkProps = {
 };
 
 /* -------------------------------------------------------------------------- */
-/*  Primary mark — Woven Y                                                     */
+/*  Primary mark — Three Threads (rose gold)                                   */
+/* -------------------------------------------------------------------------- */
+
+export function ThreadLinesMark({
+  className,
+  tone = "onLight",
+  title = "Yireh Textiles",
+}: MarkProps) {
+  // A touch brighter on dark grounds so the metal still reads as metal.
+  const stops =
+    tone === "onDark"
+      ? ["#f0b9c0", "#d47f8b", "#b05a67"]
+      : ["#e39aa4", "#c06471", "#8e414d"];
+  // Static gradient id: instances collide, but the defs are identical so the
+  // first one painted is the one they all want anyway.
+  const id = `rose-metal-${tone === "onDark" ? "d" : "l"}`;
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      role="img"
+      aria-label={title}
+      className={cn("h-9 w-9", className)}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor={stops[0]} />
+          <stop offset="0.55" stopColor={stops[1]} />
+          <stop offset="1" stopColor={stops[2]} />
+        </linearGradient>
+      </defs>
+      {/* three fat thread lines, tight 4px gaps, each stepped in */}
+      <rect x="5" y="13" width="45" height="10" rx="2" fill={`url(#${id})`} />
+      <rect x="14" y="27" width="38" height="10" rx="2" fill={`url(#${id})`} />
+      <rect x="23" y="41" width="32" height="10" rx="2" fill={`url(#${id})`} />
+    </svg>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Archived concept — Woven Y                                                 */
 /* -------------------------------------------------------------------------- */
 
 export function WovenYMark({
@@ -184,7 +227,10 @@ export function Logo({
 }) {
   return (
     <span className={cn("flex items-center gap-2.5", className)}>
-      <WovenYMark tone={tone} className={cn("h-9 w-9 shrink-0", markClassName)} />
+      <ThreadLinesMark
+        tone={tone}
+        className={cn("h-9 w-9 shrink-0", markClassName)}
+      />
       <span className="flex flex-col leading-none">
         <span
           className={cn(
@@ -198,7 +244,7 @@ export function Logo({
           <span
             className={cn(
               "mt-1 text-[0.6rem] font-medium tracking-[0.32em]",
-              tone === "onDark" ? "text-gold-300" : "text-gold-600",
+              tone === "onDark" ? "text-rose-300" : "text-rose-600",
             )}
           >
             TEXTILES

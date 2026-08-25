@@ -5,8 +5,8 @@
  */
 
 export const site = {
-  name: "Yireh Textiles",
-  legalName: "Yireh Textiles",
+  name: "Yireh Textiles & Sourcing",
+  legalName: "Yireh Textiles & Sourcing",
   tagline: "Soft furnishings and curtains, made in Sydney",
   domain: "yirehstitchtech.com",
   url: "https://www.yirehstitchtech.com",
@@ -78,23 +78,25 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: "curtains-and-blinds",
-    name: "Curtains & Blinds",
-    title: "Custom Curtains, Blinds & Window Furnishings",
-    metaTitle: "Custom Curtains & Roman Blinds Sydney | Made in Penrith",
+    name: "Curtains & Roman Blinds",
+    title: "Custom Curtains, Sheers & Roman Blinds",
+    metaTitle: "Custom Curtains, Sheers & Roman Blinds Sydney | Made in Penrith",
     metaDescription:
-      "Custom-made curtains, privacy curtains, sheers and Roman blinds manufactured in Penrith and installed across Sydney. Ten years of trade and commercial work.",
+      "Custom-made curtains, sheers, blockout curtains, acoustic curtains and Roman blinds manufactured in Penrith and installed across Sydney. Ten years of trade and commercial work.",
     summary:
-      "Made-to-measure curtains, sheers, privacy curtains and Roman blinds, sewn in our own Sydney workroom.",
+      "Made-to-measure curtains, sheers, blockout and acoustic curtains, and Roman blinds, sewn in our own Sydney workroom.",
     intro: [
       "Curtains are where we started, and they are still the bulk of what leaves our workroom each week. Every pair is cut and sewn to the exact drop of your window rather than trimmed down from a standard size, which is the difference between a curtain that hangs properly and one that never quite sits right.",
+      "The range runs from sheers and S-fold drapery through to serious technical work: blockout and thermal-lined curtains for bedrooms and hospitality, and acoustic curtains for mining and industrial sites, where heavy, dense fabric is doing a job well beyond decoration. Roman blinds — lined and interlined, in your fabric or ours — round out the window treatments we make; they are the one blind we sew ourselves.",
       "We work directly with interior designers, builders, blind retailers and furniture companies who need a workroom they can hand a job to and not think about again. We also take on direct residential and commercial jobs across Sydney.",
     ],
     items: [
       "Custom-made curtains to any drop and width",
       "Sheer and translucent curtains",
+      "Blockout and thermal-lined curtains",
+      "Acoustic curtains for mining and industrial sites",
       "Privacy curtains for healthcare, aged care and consulting rooms",
       "Roman blinds, lined and interlined",
-      "Blockout and thermal-lined curtains",
       "Pinch pleat, S-fold / wave, eyelet and pencil pleat headings",
       "Pelmets, valances and tiebacks",
       "Track and rod supply, plus installation across Sydney",
@@ -103,6 +105,7 @@ export const services: Service[] = [
       "Interior designers and decorators",
       "Blind and curtain retailers needing workroom capacity",
       "Builders and fit-out contractors",
+      "Mining and industrial operators",
       "Aged care, medical and hospitality operators",
       "Homeowners across Sydney",
     ],
@@ -112,8 +115,8 @@ export const services: Service[] = [
         body: "We measure, cut and sew to your drop. No off-the-shelf sizing, no compromise on how the fabric falls.",
       },
       {
-        title: "Trade volume, trade turnaround",
-        body: "Our workroom is set up for repeat volume, so a fifty-window job runs on the same schedule as a five-window one.",
+        title: "Blockout to acoustic",
+        body: "From blockout bedroom curtains to dense acoustic curtains for mining sites — heavy technical work is our normal.",
       },
       {
         title: "Commercial-grade compliance",

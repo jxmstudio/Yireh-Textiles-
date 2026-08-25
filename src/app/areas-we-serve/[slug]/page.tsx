@@ -112,7 +112,7 @@ export default async function AreaPage({
               />
               <div className="mt-8 space-y-5 text-pretty text-base leading-relaxed text-navy-900/80 sm:text-lg">
                 <p>
-                  Yireh Textiles manufactures curtains, blinds, upholstery and
+                  Yireh Textiles & Sourcing manufactures curtains, blinds, upholstery and
                   soft furnishings from our own facility in Penrith. Nothing is
                   outsourced and nothing is bought in off a shelf, which means
                   what we quote for {area.name} is what our own team makes.

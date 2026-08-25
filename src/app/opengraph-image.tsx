@@ -21,11 +21,11 @@ export default function OpengraphImage() {
         }}
       >
         {/* Top: mark + wordmark */}
-        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <svg width="64" height="64" viewBox="0 0 64 64">
-            <rect x="5" y="13" width="45" height="10" rx="2" fill="#e8a2ab" />
-            <rect x="14" y="27" width="38" height="10" rx="2" fill="#d47f8b" />
-            <rect x="23" y="41" width="32" height="10" rx="2" fill="#c06471" />
+        <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
+          <svg width="96" height="64" viewBox="0 0 96 64">
+            <rect x="0" y="13" width="96" height="10" rx="2" fill="#f0d375" />
+            <rect x="18" y="27" width="74" height="10" rx="2" fill="#dcb84f" />
+            <rect x="36" y="41" width="52" height="10" rx="2" fill="#a8851d" />
           </svg>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div
@@ -40,13 +40,13 @@ export default function OpengraphImage() {
             </div>
             <div
               style={{
-                fontSize: 15,
-                letterSpacing: 10,
-                color: "#d47f8b",
+                fontSize: 13,
+                letterSpacing: 5,
+                color: "#e8d5a3",
                 marginTop: 6,
               }}
             >
-              TEXTILES
+              TEXTILES &amp; SOURCING
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function OpengraphImage() {
               marginTop: 26,
             }}
           >
-            Curtains · Blinds · Upholstery · Cushions · Marine &amp; Campervan
+            Curtains · Roman Blinds · Upholstery · Cushions · Marine &amp; Campervan
           </div>
         </div>
 

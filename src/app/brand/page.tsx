@@ -11,7 +11,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Logo Concepts",
-  description: "Logo and brand direction options for Yireh Textiles.",
+  description: "Logo and brand direction options for Yireh Textiles & Sourcing.",
   robots: { index: false, follow: false },
 };
 
@@ -21,7 +21,7 @@ const concepts = [
     name: "Three Threads",
     status: "Currently live on the site",
     Mark: ThreadLinesMark,
-    idea: "Three bold thread lines in rose gold, each stepped in from the last — set heavy and tight, to your sketch.",
+    idea: "Three bold thread lines in sharp gold, the first a step longer than the rest — set heavy and tight, to your sketch.",
     why: "Three threads for the three sides of the workroom — curtains, soft furnishings and upholstery — and every one of them starts as a single line of thread. The heavy weights keep it legible from favicon size up to signage.",
   },
   {
@@ -53,8 +53,8 @@ const concepts = [
 const palette = [
   { name: "Navy 950", hex: "#08182c", role: "Headers, footer, hero panels" },
   { name: "Navy 900", hex: "#0f2440", role: "Primary buttons, headings" },
-  { name: "Rose Gold 400", hex: "#d47f8b", role: "The mark and lockup tagline" },
-  { name: "Rose Gold 500", hex: "#c06471", role: "The mark, deeper metal tone" },
+  { name: "Gold 300", hex: "#f0d375", role: "The mark, bright metal edge" },
+  { name: "Gold 500", hex: "#c8a045", role: "The mark, deeper metal tone" },
   { name: "Gold 500", hex: "#c9a227", role: "Accent rules, primary CTA" },
   { name: "Gold 300", hex: "#e8d08a", role: "Accents on dark backgrounds" },
   { name: "Sand", hex: "#f8f5ef", role: "Alternate section background" },
@@ -70,8 +70,8 @@ export default function BrandPage() {
           { name: "Logo Concepts", href: "/brand" },
         ]}
         eyebrow="For review"
-        title="Logo concepts for Yireh Textiles"
-        lead="The live mark is the three rose-gold thread lines you asked for. The earlier concepts stay here for reference — say the word and we can adjust the weight, spacing or shade of the lines."
+        title="Logo concepts for Yireh Textiles & Sourcing"
+        lead="The live mark is the three gold thread lines you asked for. The earlier concepts stay here for reference — say the word and we can adjust the weight, spacing or shade of the lines."
       />
 
       <Section>

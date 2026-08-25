@@ -92,7 +92,7 @@ export function SiteFooter() {
           <p>
             © {new Date().getFullYear()} {site.legalName}. All rights reserved.
           </p>
-          <p>Custom curtains, blinds and soft furnishings · Sydney</p>
+          <p>Custom curtains, Roman blinds and soft furnishings · Sydney</p>
         </div>
       </div>
 

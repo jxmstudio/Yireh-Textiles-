@@ -12,7 +12,7 @@ import { faqs, services, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact & Quotes",
-  description: `Get a quote from Yireh Textiles. Call ${site.phone.display} between 8am and 6pm, email ${site.email}, or send the enquiry form. Penrith workroom, servicing all of Sydney.`,
+  description: `Get a quote from Yireh Textiles & Sourcing. Call ${site.phone.display} between 8am and 6pm, email ${site.email}, or send the enquiry form. Penrith workroom, servicing all of Sydney.`,
   alternates: { canonical: "/contact" },
 };
 

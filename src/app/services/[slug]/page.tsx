@@ -11,7 +11,7 @@ import { PhotoBand } from "@/components/shared/photo-band";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ctaSolid, ctaOnDark, ctaOutlineLight } from "@/components/ui/cta";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
-import { serviceMedia } from "@/content/products";
+import { curtainRange, serviceMedia } from "@/content/products";
 import { getService, services, site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -176,6 +176,45 @@ export default async function ServicePage({
           </div>
         </Container>
       </Section>
+
+      {/*
+        The curtain range — a photo-led breakdown, only on the curtains page
+        (client request, Aug 2026: "more detailed and photo-oriented").
+      */}
+      {service.slug === "curtains-and-blinds" && (
+        <Section tone="sand">
+          <Container>
+            <SectionHeading
+              eyebrow="The range"
+              title="Every curtain we sew"
+              description="From sheers to dense acoustic curtains for mining sites — each one cut and sewn to measure in our own workroom."
+            />
+            <ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {curtainRange.map((item) => (
+                <li key={item.title}>
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <Image
+                      src={item.image.src}
+                      alt={item.image.alt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      placeholder="blur"
+                      blurDataURL={item.image.blurDataURL}
+                      className="object-cover"
+                    />
+                  </div>
+                  <h3 className="mt-5 font-heading text-lg font-semibold text-navy-950">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-navy-900/75">
+                    {item.body}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </Section>
+      )}
 
       {/* Service area — one line, no suburb chips (client request, Aug 2026) */}
       <Section tone="sand" className="py-14 sm:py-16">

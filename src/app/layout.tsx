@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description:
-    "Yireh Textiles manufactures custom curtains, Roman blinds and soft furnishings in Penrith, Western Sydney. Ten years supplying furniture brands, designers and homes across Sydney.",
+    "Yireh Textiles & Sourcing manufactures custom curtains, Roman blinds and soft furnishings in Penrith, Western Sydney. Ten years supplying furniture brands, designers and homes across Sydney.",
   keywords: [
     "custom curtains Sydney",
     "soft furnishings Sydney",

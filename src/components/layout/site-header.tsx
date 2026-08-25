@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
-import { Menu } from "lucide-react";
+import { ChevronDown, Menu } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -26,8 +26,47 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
+  const [servicesOpen, setServicesOpen] = React.useState(false);
+  const servicesRef = React.useRef<HTMLDivElement>(null);
+  const closeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const overlayCapable = pathname === "/";
+
+  // The Services menu closes when the route changes, when focus/pointer leave
+  // it, on Escape, and on any click outside. Route changes are handled with
+  // the render-time state adjustment React recommends over an effect.
+  const [menuPathname, setMenuPathname] = React.useState(pathname);
+  if (menuPathname !== pathname) {
+    setMenuPathname(pathname);
+    setServicesOpen(false);
+  }
+
+  React.useEffect(() => {
+    if (!servicesOpen) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!servicesRef.current?.contains(e.target as Node)) {
+        setServicesOpen(false);
+      }
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setServicesOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [servicesOpen]);
+
+  const holdServicesOpen = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setServicesOpen(true);
+  };
+  const releaseServices = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setServicesOpen(false), 160);
+  };
 
   React.useEffect(() => {
     if (!overlayCapable) return;
@@ -68,33 +107,113 @@ export function SiteHeader() {
         <nav aria-label="Main" className="hidden items-center gap-8 lg:flex">
           {nav
             .filter((item) => item.href !== "/")
-            .map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={isActive(item.href) ? "page" : undefined}
-                className={cn(
-                  "group relative pb-1 text-[0.72rem] font-medium tracking-[0.18em] uppercase transition-colors",
-                  transparent
-                    ? "text-white/80 hover:text-white"
-                    : "text-stone-600 hover:text-ink",
-                  isActive(item.href) &&
-                    (transparent ? "text-white" : "text-ink"),
-                )}
-              >
-                {item.label}
-                <span
-                  aria-hidden
-                  className={cn(
-                    "absolute inset-x-0 bottom-0 origin-left scale-x-0 border-b border-dashed transition-transform duration-300 group-hover:scale-x-100",
-                    transparent
-                      ? "border-[var(--gold-200)]"
-                      : "border-[var(--gold-600)]",
-                    isActive(item.href) && "scale-x-100",
+            .map((item) =>
+              item.href === "/services" ? (
+                /*
+                  Services opens a menu rather than navigating, so every
+                  service is one click away instead of a scroll down the
+                  listing page. The listing stays reachable from the last row.
+                */
+                <div
+                  key={item.href}
+                  ref={servicesRef}
+                  className="relative"
+                  onMouseEnter={holdServicesOpen}
+                  onMouseLeave={releaseServices}
+                >
+                  <button
+                    type="button"
+                    aria-expanded={servicesOpen}
+                    aria-haspopup="true"
+                    onClick={() => setServicesOpen((v) => !v)}
+                    className={cn(
+                      "group relative flex items-center gap-1 pb-1 text-[0.72rem] font-medium tracking-[0.18em] uppercase transition-colors",
+                      transparent
+                        ? "text-white/80 hover:text-white"
+                        : "text-stone-600 hover:text-ink",
+                      (servicesOpen || isActive(item.href)) &&
+                        (transparent ? "text-white" : "text-ink"),
+                    )}
+                  >
+                    {item.label}
+                    <ChevronDown
+                      aria-hidden
+                      className={cn(
+                        "size-3.5 transition-transform duration-300",
+                        servicesOpen && "rotate-180",
+                      )}
+                    />
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "absolute inset-x-0 bottom-0 origin-left scale-x-0 border-b border-dashed transition-transform duration-300 group-hover:scale-x-100",
+                        transparent
+                          ? "border-[var(--gold-200)]"
+                          : "border-[var(--gold-600)]",
+                        (servicesOpen || isActive(item.href)) && "scale-x-100",
+                      )}
+                    />
+                  </button>
+
+                  {servicesOpen && (
+                    <div className="absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-4">
+                      <div className="relative border border-dashed border-[var(--gold-500)]/70 bg-linen/98 shadow-[0_18px_50px_-18px_rgba(12,23,41,0.35)] backdrop-blur">
+                        <ul className="py-2">
+                          {services.map((s) => (
+                            <li key={s.slug}>
+                              <Link
+                                href={`/services/${s.slug}`}
+                                onClick={() => setServicesOpen(false)}
+                                className={cn(
+                                  "block px-5 py-2.5 text-sm text-stone-600 transition-colors hover:bg-white hover:text-ink",
+                                  pathname === `/services/${s.slug}` &&
+                                    "text-ink",
+                                )}
+                              >
+                                {s.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                        <Link
+                          href="/services"
+                          onClick={() => setServicesOpen(false)}
+                          className="block border-t border-dashed border-[var(--gold-500)]/50 px-5 py-3 text-[0.68rem] font-medium tracking-[0.18em] uppercase text-[var(--gold-600)] transition-colors hover:text-ink"
+                        >
+                          All services
+                        </Link>
+                      </div>
+                    </div>
                   )}
-                />
-              </Link>
-            ))}
+                </div>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className={cn(
+                    "group relative pb-1 text-[0.72rem] font-medium tracking-[0.18em] uppercase transition-colors",
+                    transparent
+                      ? "text-white/80 hover:text-white"
+                      : "text-stone-600 hover:text-ink",
+                    isActive(item.href) &&
+                      (transparent ? "text-white" : "text-ink"),
+                  )}
+                >
+                  {item.label}
+                  <span
+                    aria-hidden
+                    className={cn(
+                      "absolute inset-x-0 bottom-0 origin-left scale-x-0 border-b border-dashed transition-transform duration-300 group-hover:scale-x-100",
+                      transparent
+                        ? "border-[var(--gold-200)]"
+                        : "border-[var(--gold-600)]",
+                      isActive(item.href) && "scale-x-100",
+                    )}
+                  />
+                </Link>
+              ),
+            )}
         </nav>
 
         <div className="flex items-center gap-5">

@@ -1,14 +1,16 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Yireh Textiles identity.
+ * Yireh Textiles & Sourcing identity.
  *
  * "Yireh" (Genesis 22:14, Jehovah-Jireh) means "the Lord provides".
  *
- * Primary mark (client-directed, Aug 2026): three bold rose-gold thread lines,
- * each stepped in from the last — three threads laid down, one for each side
- * of the workroom. Heavy weights and tight spacing per the client's sketch.
- * The earlier monogram concepts are kept below for the /brand archive.
+ * Primary mark (client-directed, Aug 2026): three bold gold thread lines,
+ * each stepped in from the last — the first noticeably longer than the other
+ * two, per the client's sketch. The client moved the metal from rose gold to
+ * a sharp, true gold (Aug 2026) and asked for the lines to sit hard against
+ * the wordmark with no gap. The earlier monogram concepts are kept below for
+ * the /brand archive.
  */
 
 type MarkProps = {
@@ -19,28 +21,28 @@ type MarkProps = {
 };
 
 /* -------------------------------------------------------------------------- */
-/*  Primary mark — Three Threads (rose gold)                                   */
+/*  Primary mark — Three Threads (gold)                                        */
 /* -------------------------------------------------------------------------- */
 
 export function ThreadLinesMark({
   className,
   tone = "onLight",
-  title = "Yireh Textiles",
+  title = "Yireh Textiles & Sourcing",
 }: MarkProps) {
   // A touch brighter on dark grounds so the metal still reads as metal.
   const stops =
     tone === "onDark"
-      ? ["#f0b9c0", "#d47f8b", "#b05a67"]
-      : ["#e39aa4", "#c06471", "#8e414d"];
+      ? ["#f7e09a", "#dcb84f", "#a8851d"]
+      : ["#f0d375", "#c8a045", "#8a6a16"];
   // Static gradient id: instances collide, but the defs are identical so the
   // first one painted is the one they all want anyway.
-  const id = `rose-metal-${tone === "onDark" ? "d" : "l"}`;
+  const id = `gold-metal-${tone === "onDark" ? "d" : "l"}`;
   return (
     <svg
-      viewBox="0 0 64 64"
+      viewBox="0 0 96 64"
       role="img"
       aria-label={title}
-      className={cn("h-9 w-9", className)}
+      className={cn("h-9 w-[3.375rem]", className)}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -51,10 +53,15 @@ export function ThreadLinesMark({
           <stop offset="1" stopColor={stops[2]} />
         </linearGradient>
       </defs>
-      {/* three fat thread lines, tight 4px gaps, each stepped in */}
-      <rect x="5" y="13" width="45" height="10" rx="2" fill={`url(#${id})`} />
-      <rect x="14" y="27" width="38" height="10" rx="2" fill={`url(#${id})`} />
-      <rect x="23" y="41" width="32" height="10" rx="2" fill={`url(#${id})`} />
+      {/*
+        Three fat thread lines, tight 4px gaps, each stepped in from the left.
+        The first runs the full width — clearly longer than the other two —
+        and all three end hard at the right edge of the viewBox so the mark
+        butts up against the wordmark with no gap.
+      */}
+      <rect x="0" y="13" width="96" height="10" rx="2" fill={`url(#${id})`} />
+      <rect x="18" y="27" width="74" height="10" rx="2" fill={`url(#${id})`} />
+      <rect x="36" y="41" width="52" height="10" rx="2" fill={`url(#${id})`} />
     </svg>
   );
 }
@@ -66,7 +73,7 @@ export function ThreadLinesMark({
 export function WovenYMark({
   className,
   tone = "onLight",
-  title = "Yireh Textiles",
+  title = "Yireh Textiles & Sourcing",
 }: MarkProps) {
   const thread = tone === "onDark" ? "#ffffff" : "var(--navy-900)";
   return (
@@ -119,7 +126,7 @@ export function WovenYMark({
 export function NeedleArchMark({
   className,
   tone = "onLight",
-  title = "Yireh Textiles",
+  title = "Yireh Textiles & Sourcing",
 }: MarkProps) {
   const thread = tone === "onDark" ? "#ffffff" : "var(--navy-900)";
   return (
@@ -166,7 +173,7 @@ export function NeedleArchMark({
 export function DrapeYMark({
   className,
   tone = "onLight",
-  title = "Yireh Textiles",
+  title = "Yireh Textiles & Sourcing",
 }: MarkProps) {
   const thread = tone === "onDark" ? "#ffffff" : "var(--navy-900)";
   return (
@@ -226,10 +233,12 @@ export function Logo({
   markClassName?: string;
 }) {
   return (
-    <span className={cn("flex items-center gap-2.5", className)}>
+    // gap-0: the client wants the thread lines attached to the wordmark,
+    // with no space between them.
+    <span className={cn("flex items-center gap-0", className)}>
       <ThreadLinesMark
         tone={tone}
-        className={cn("h-9 w-9 shrink-0", markClassName)}
+        className={cn("h-9 w-[3.375rem] shrink-0", markClassName)}
       />
       <span className="flex flex-col leading-none">
         <span
@@ -243,11 +252,13 @@ export function Logo({
         {showTagline && (
           <span
             className={cn(
-              "mt-1 text-[0.6rem] font-medium tracking-[0.32em]",
-              tone === "onDark" ? "text-rose-300" : "text-rose-600",
+              "mt-1 text-[0.52rem] font-medium tracking-[0.22em]",
+              tone === "onDark"
+                ? "text-[var(--gold-200)]"
+                : "text-[var(--gold-600)]",
             )}
           >
-            TEXTILES
+            TEXTILES &amp; SOURCING
           </span>
         )}
       </span>

@@ -20,7 +20,7 @@ import { differentiators, services, site, stats } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Yireh Textiles has manufactured curtains, soft furnishings and garments in Sydney for over ten years, working all over Sydney for furniture brands, apparel labels and designers.",
+    "Yireh Textiles & Sourcing has manufactured curtains, soft furnishings and garments in Sydney for over ten years, working all over Sydney for furniture brands, apparel labels and designers.",
   alternates: { canonical: "/about" },
 };
 
@@ -52,7 +52,7 @@ export default function AboutPage() {
       <PageHero
         image={images.heroPoster}
         trail={trail}
-        eyebrow="About Yireh Textiles"
+        eyebrow="About Yireh Textiles & Sourcing"
         title="Ten years of manufacturing, one Sydney workroom"
         lead="We are a manufacturer, not a reseller, and we work all over Sydney. Everything we quote is made by our own team, on our own floor, to a standard that trade clients have kept coming back to for a decade."
         actions={
@@ -80,7 +80,7 @@ export default function AboutPage() {
               />
               <div className="mt-8 space-y-5 text-pretty text-base leading-relaxed text-navy-900/80 sm:text-lg">
                 <p>
-                  Yireh Textiles started as a workroom making curtains and soft
+                  Yireh Textiles & Sourcing started as a workroom making curtains and soft
                   furnishings for Sydney businesses. Ten years on, that is still
                   the core of what we do — but the floor now also runs
                   upholstery, vehicle and marine interiors, and bulk garment
@@ -138,7 +138,7 @@ export default function AboutPage() {
                   work: provide properly, and the rest follows.
                 </p>
                 <p className="mt-4 text-sm leading-relaxed text-navy-900/80">
-                  The mark is <strong>three threads</strong> laid down in rose
+                  The mark is <strong>three threads</strong> laid down in
                   gold — one each for the curtains, soft furnishings and
                   upholstery that leave the workroom, every one of them starting
                   from a single line of thread.

@@ -14,7 +14,7 @@ import { faqSchema } from "@/lib/schema";
 import { faqs } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Custom Curtains & Soft Furnishings Sydney | Yireh Textiles",
+  title: "Custom Curtains & Soft Furnishings Sydney | Yireh Textiles & Sourcing",
   description:
     "A Sydney soft furnishing workroom. Ten years making curtains, blinds, upholstery and soft furnishings in Penrith for furniture brands, designers and homes Sydney-wide.",
   alternates: { canonical: "/" },

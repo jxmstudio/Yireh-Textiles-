@@ -14,7 +14,7 @@ import { areas, services, site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Areas We Serve Across Sydney",
   description:
-    "Yireh Textiles manufactures in Penrith and services all of Greater Sydney — Western Sydney, the Hills, Hawkesbury, Macarthur, the CBD, Inner West, North Shore, Northern Beaches and the Sutherland Shire.",
+    "Yireh Textiles & Sourcing manufactures in Penrith and services all of Greater Sydney — Western Sydney, the Hills, Hawkesbury, Macarthur, the CBD, Inner West, North Shore, Northern Beaches and the Sutherland Shire.",
   alternates: { canonical: "/areas-we-serve" },
 };
 

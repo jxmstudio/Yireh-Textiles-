@@ -4,11 +4,10 @@ import { images, type Img } from "./images";
  * The capability index (plan §3.4) — the component that replaces the icon-card
  * grid. Four full-bleed portrait tiles, each one a photograph.
  *
- * The plan's tile list named "Blinds & Romans" as its own tile pointing at
- * /blinds. That route does not exist and Roman blinds are already covered by
- * the Curtains & Blinds service page, so tile 02 is Soft Furnishings instead.
- * Every tile now has a distinct, real destination rather than two tiles landing
- * on the same page. Curtains and soft furnishings lead, per the questionnaire.
+ * Tile 03 is "Roman Blinds" — the one blind the workroom sews (the client
+ * dropped other blinds from the offer, Aug 2026) — and points at the
+ * Curtains & Roman Blinds service page alongside tile 01. Curtains and soft
+ * furnishings lead, per the questionnaire.
  */
 export type Capability = {
   number: string;
@@ -22,7 +21,7 @@ export const capabilities: Capability[] = [
   {
     number: "01",
     title: "Curtains & Sheers",
-    descriptor: "Custom-made, blockout, sheer, privacy and medical",
+    descriptor: "Custom-made, blockout, sheer, acoustic and medical",
     href: "/services/curtains-and-blinds",
     image: images.capCurtains,
   },
@@ -35,10 +34,10 @@ export const capabilities: Capability[] = [
   },
   {
     number: "03",
-    title: "Blinds & Romans",
-    descriptor: "Roman blinds and custom window treatments",
+    title: "Roman Blinds",
+    descriptor: "Lined and interlined Roman blinds, made to measure",
     href: "/services/curtains-and-blinds",
-    image: images.capBlinds,
+    image: images.capRoman,
   },
   {
     number: "04",
@@ -59,11 +58,18 @@ export const capabilities: Capability[] = [
 export const serviceMedia: Record<string, { hero: Img; gallery: Img[] }> = {
   "curtains-and-blinds": {
     hero: images.svcCurtainsHero,
+    // Eight tiles, not four — the client asked for the curtain page to be
+    // more detailed and photo-oriented (Aug 2026). Workroom photography
+    // first, then the made-product imagery.
     gallery: [
-      images.svcCurtains1,
       images.svcCurtains2,
+      images.svcSheers,
+      images.svcRoman2,
+      images.svcDrapes,
+      images.svcCurtains1,
       images.svcCurtains3,
       images.svcCurtains4,
+      images.svcBlockout,
     ],
   },
   "soft-furnishings-and-upholstery": {
@@ -103,6 +109,49 @@ export const serviceMedia: Record<string, { hero: Img; gallery: Img[] }> = {
     ],
   },
 };
+
+/**
+ * The curtain range (client request, Aug 2026): the curtains page carries a
+ * photo-led breakdown of what the workroom actually sews — including the
+ * technical end (blockout, acoustic for mining) the client asked to call out.
+ * Rendered only on /services/curtains-and-blinds.
+ */
+export const curtainRange: {
+  title: string;
+  body: string;
+  image: Img;
+}[] = [
+  {
+    title: "Sheers & S-fold curtains",
+    body: "Light-filtering sheers and soft S-fold / wave drapery, sewn to the exact drop so the fabric breaks just off the floor.",
+    image: images.svcSheers,
+  },
+  {
+    title: "Blockout & thermal curtains",
+    body: "Triple-weave and coated blockout, lined or interlined, for bedrooms, media rooms, hospitality and shift-workers' homes.",
+    image: images.svcBlockout,
+  },
+  {
+    title: "Roman blinds",
+    body: "The one blind we sew ourselves: lined and interlined Roman blinds, made to measure in your fabric or ours.",
+    image: images.svcRoman1,
+  },
+  {
+    title: "Acoustic curtains for mining & industry",
+    body: "Dense, heavyweight acoustic curtains for mining sites, plant rooms and industrial spaces, made to spec and to site dimensions.",
+    image: images.svcAcoustic,
+  },
+  {
+    title: "Privacy & healthcare curtains",
+    body: "Cubicle and privacy curtains in healthcare-suitable, fire-retardant fabrics for aged care, medical and consulting rooms.",
+    image: images.capCurtains,
+  },
+  {
+    title: "Tracks, pelmets & installation",
+    body: "Track and rod supply, pelmets, valances and tiebacks — measured and installed by our own team across Sydney.",
+    image: images.stepInstall,
+  },
+];
 
 /**
  * A hero for each service area, chosen to match what that area's copy actually

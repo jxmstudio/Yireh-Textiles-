@@ -2,62 +2,95 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import { HeroWordmark } from "@/components/brand/wordmark";
 import { hero } from "@/content/home";
-import { heroVideo } from "@/content/images";
+import { heroVideos } from "@/content/images";
+
+/**
+ * How long each hero clip holds before the next one fades in.
+ * The client asked for the clips to keep changing about every two seconds
+ * (Aug 2026) — raise this if it ever feels too quick.
+ */
+const ROTATE_MS = 2000;
+const FADE_MS = 700;
 
 /**
  * Hero (plan §3.1). Full viewport height, full-bleed video loop, content
  * left-aligned in the bottom third. Not a centred card, not a boxed container —
  * the video is the page.
  *
- * The poster renders through next/image as the LCP element and the video fades
- * in over it once it can play, so the largest paint never waits on the MP4.
- * Under prefers-reduced-motion the video is never mounted at all.
+ * Three of the client's clips rotate on a timer, crossfading between each
+ * other. The first clip's poster renders through next/image as the LCP
+ * element and the videos fade in over it once the first can play, so the
+ * largest paint never waits on an MP4. Under prefers-reduced-motion no video
+ * is mounted and nothing rotates.
  */
 export function WorkroomHero() {
   const reduced = useReducedMotion();
   const [videoReady, setVideoReady] = useState(false);
+  const [active, setActive] = useState(0);
+
+  // A local MP4 can reach canplay before hydration attaches the onCanPlay
+  // handler, so the ref also checks readyState directly on mount.
+  const firstVideoRef = useCallback((el: HTMLVideoElement | null) => {
+    if (el && el.readyState >= 3) setVideoReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (reduced || !videoReady) return;
+    const id = setInterval(
+      () => setActive((i) => (i + 1) % heroVideos.length),
+      ROTATE_MS,
+    );
+    return () => clearInterval(id);
+  }, [reduced, videoReady]);
+
+  const poster = heroVideos[0].poster;
 
   return (
     <section className="relative h-[100svh] min-h-[38rem] w-full overflow-hidden bg-ink">
       <Image
-        src={heroVideo.poster.src}
-        alt={heroVideo.poster.alt}
+        src={poster.src}
+        alt={poster.alt}
         fill
         sizes="100vw"
         quality={90}
         loading="eager"
         fetchPriority="high"
         placeholder="blur"
-        blurDataURL={heroVideo.poster.blurDataURL}
+        blurDataURL={poster.blurDataURL}
         className="object-cover"
       />
 
-      {!reduced && (
-        <video
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
-            videoReady ? "opacity-100" : "opacity-0"
-          }`}
-          src={heroVideo.src}
-          poster={heroVideo.poster.src}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-          tabIndex={-1}
-          onCanPlay={() => setVideoReady(true)}
-        />
-      )}
+      {!reduced &&
+        heroVideos.map((video, i) => (
+          <video
+            key={video.src}
+            ref={i === 0 ? firstVideoRef : undefined}
+            className="absolute inset-0 h-full w-full object-cover transition-opacity"
+            style={{
+              transitionDuration: `${FADE_MS}ms`,
+              opacity: videoReady && i === active ? 1 : 0,
+            }}
+            src={video.src}
+            poster={video.poster.src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload={i === 0 ? "auto" : "metadata"}
+            aria-hidden="true"
+            tabIndex={-1}
+            onCanPlay={i === 0 ? () => setVideoReady(true) : undefined}
+          />
+        ))}
 
       {/*
         §3.1 overlay. Two scrims, not one: the vertical gradient anchors the
         bottom third, and the horizontal one keeps the text column dark enough
-        for AA contrast even when the clip cuts to a bright white fabric frame.
+        for AA contrast even when a clip cuts to a bright white fabric frame.
       */}
       <div
         aria-hidden="true"

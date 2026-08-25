@@ -26,11 +26,13 @@ export function NavLockup({
   tone?: Tone;
 }) {
   return (
-    <span className={cn("flex items-center gap-3", className)}>
+    // gap-0 — the client wants the thread lines and the wordmark attached,
+    // with no space between them.
+    <span className={cn("flex items-center gap-0", className)}>
       {/* 40px mark — the floor the client asked for */}
       <ThreadLinesMark
         tone={tone}
-        className="h-10 w-10 shrink-0 md:h-11 md:w-11"
+        className="h-10 w-[3.75rem] shrink-0 md:h-11 md:w-[4.125rem]"
       />
       <span className="flex flex-col leading-none">
         <span
@@ -43,11 +45,13 @@ export function NavLockup({
         </span>
         <span
           className={cn(
-            "mt-1.5 text-[0.6rem] font-medium tracking-[0.34em]",
-            tone === "onDark" ? "text-[var(--rose-200)]" : "text-[var(--rose-600)]",
+            "mt-1.5 text-[0.55rem] font-medium tracking-[0.22em]",
+            tone === "onDark"
+              ? "text-[var(--gold-200)]"
+              : "text-[var(--gold-600)]",
           )}
         >
-          TEXTILES
+          TEXTILES &amp; SOURCING
         </span>
       </span>
     </span>
@@ -68,13 +72,13 @@ export function HeroWordmark({ className }: { className?: string }) {
         Yireh
       </span>
       <span
-        className="mt-3 block font-medium text-[var(--rose-200)]"
+        className="mt-3 block font-medium text-[var(--gold-200)]"
         style={{
           fontSize: "clamp(0.75rem, 1.6vw, 1.25rem)",
-          letterSpacing: "0.42em",
+          letterSpacing: "0.3em",
         }}
       >
-        TEXTILES
+        TEXTILES &amp; SOURCING
       </span>
     </span>
   );
@@ -110,7 +114,7 @@ export function FooterWordmark({ className }: { className?: string }) {
         fontWeight="600"
         className="fill-white/[0.07] font-display"
       >
-        Yireh Textiles
+        Yireh Textiles &amp; Sourcing
       </text>
     </svg>
   );

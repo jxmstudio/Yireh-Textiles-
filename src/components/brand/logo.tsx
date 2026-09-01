@@ -60,8 +60,8 @@ export function ThreadLinesMark({
         butts up against the wordmark with no gap.
       */}
       <rect x="0" y="13" width="96" height="10" rx="2" fill={`url(#${id})`} />
-      <rect x="18" y="27" width="74" height="10" rx="2" fill={`url(#${id})`} />
-      <rect x="36" y="41" width="52" height="10" rx="2" fill={`url(#${id})`} />
+      <rect x="18" y="27" width="78" height="10" rx="2" fill={`url(#${id})`} />
+      <rect x="36" y="41" width="60" height="10" rx="2" fill={`url(#${id})`} />
     </svg>
   );
 }

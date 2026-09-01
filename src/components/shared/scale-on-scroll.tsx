@@ -38,7 +38,7 @@ export function ScaleOnScroll({
 
   return (
     <div ref={ref} className={className}>
-      <motion.div style={{ scale }} className="h-full w-full">
+      <motion.div style={{ scale }} className="relative h-full w-full">
         {children}
       </motion.div>
     </div>

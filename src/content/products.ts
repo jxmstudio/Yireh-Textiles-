@@ -62,7 +62,7 @@ export const serviceMedia: Record<string, { hero: Img; gallery: Img[] }> = {
     // more detailed and photo-oriented (Aug 2026). Workroom photography
     // first, then the made-product imagery.
     gallery: [
-      images.svcCurtains2,
+      images.svcAcoustic,
       images.svcSheers,
       images.svcRoman2,
       images.svcDrapes,

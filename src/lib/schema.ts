@@ -1,4 +1,11 @@
-import { areas, clients, services, site, type Service } from "./site";
+import {
+  areas,
+  clients,
+  services,
+  site,
+  type Area,
+  type Service,
+} from "./site";
 
 const ORG_ID = `${site.url}/#organization`;
 
@@ -89,6 +96,58 @@ export function serviceSchema(service: Service) {
       itemListElement: service.items.map((item) => ({
         "@type": "Offer",
         itemOffered: { "@type": "Service", name: item },
+      })),
+    },
+  };
+}
+
+/**
+ * One Service node per location page, scoped to that suburb and its
+ * neighbours, so each /areas-we-serve/* URL carries its own local signal
+ * rather than only inheriting the site-wide LocalBusiness.
+ */
+export function areaSchema(area: Area) {
+  const url = `${site.url}/areas-we-serve/${area.slug}`;
+  const place = (name: string) => ({
+    "@type": "Place",
+    name: `${name}, NSW`,
+    containedInPlace: {
+      "@type": "AdministrativeArea",
+      name: `${area.region}, Sydney`,
+    },
+  });
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${url}/#service`,
+    name: `Custom curtains & soft furnishings in ${area.name}`,
+    description: area.blurb,
+    serviceType: "Custom curtains, Roman blinds, upholstery and soft furnishings",
+    url,
+    provider: { "@id": ORG_ID },
+    areaServed: [place(area.name), ...area.nearby.map(place)],
+    availableChannel: {
+      "@type": "ServiceChannel",
+      serviceUrl: `${site.url}/contact`,
+      servicePhone: {
+        "@type": "ContactPoint",
+        telephone: site.phone.display,
+        contactType: "sales",
+        areaServed: "AU",
+        availableLanguage: "en",
+      },
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: `Services in ${area.name}`,
+      itemListElement: services.map((s) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: `${s.name} in ${area.name}`,
+          url: `${site.url}/services/${s.slug}`,
+        },
       })),
     },
   };

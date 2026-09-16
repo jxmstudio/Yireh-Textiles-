@@ -106,12 +106,42 @@ logged to the server console instead of emailed. Set the key before launch.
 2. **Logo sign-off.** Send `/brand` and get a concept chosen, then produce the
    final file set (SVG, PNG, favicon, social avatar) for handover.
 3. **Resend key + verified domain**, so enquiries reach the inbox.
-4. **Domain.** Point `www.yirehstitchtech.com` (GoDaddy) at the host. Leave the
-   existing MX records alone so email keeps working.
-5. **Google Search Console + Analytics**, sitemap submitted, pages indexed.
+4. **Domain.** Point `www.yirehstitchtech.com` (GoDaddy) at the host and add the
+   bare `yirehstitchtech.com` too — `next.config.ts` 308-redirects it to `www`.
+   Leave the existing MX records alone so email keeps working.
+5. **Google Search Console** — see the section below.
 6. **Aboriginal art theme** — see the note at the bottom of `/brand`. Genuine
    Aboriginal artwork should be commissioned or licensed from an Aboriginal
    artist rather than imitated; happy to help arrange it.
+
+---
+
+## Search Console
+
+Canonical host is **`https://www.yirehstitchtech.com`**. Every canonical tag,
+sitemap URL and JSON-LD `@id` uses it, and the bare apex redirects to it, so
+add the site to Search Console as that host.
+
+1. **Add a property.** Prefer a *Domain* property (`yirehstitchtech.com`) — it
+   covers `www`, apex, http and https in one view. Verify it by adding the TXT
+   record Search Console gives you to the domain's DNS at GoDaddy.
+   - Alternative: a *URL-prefix* property for `https://www.yirehstitchtech.com/`
+     verified with the **HTML tag** method. Copy only the `content="…"` value
+     into `GOOGLE_SITE_VERIFICATION` in the host's environment variables and
+     redeploy; `src/app/layout.tsx` renders the `<meta>` tag on every page.
+2. **Submit the sitemap.** Sitemaps → add `https://www.yirehstitchtech.com/sitemap.xml`.
+   It lists the home, services, about, contact, the 5 service pages, the area
+   index and the 12 location pages. `/privacy` and `/brand` are `noindex`
+   and deliberately left out.
+3. **Request indexing** for the home page and the area index via URL
+   Inspection; the rest follows from internal links and the sitemap.
+4. **Check** after a few days: Pages → indexed count should approach 21, and
+   Enhancements should list FAQ, Breadcrumb and (over time) LocalBusiness.
+
+Location pages live at `/areas-we-serve/<slug>`. Each one ships its own title,
+description, canonical, `BreadcrumbList`, `FAQPage` and a location-scoped
+`Service` node (`areaSchema` in `src/lib/schema.ts`). Adding an entry to
+`areas` in `src/lib/site.ts` creates a new page and sitemap entry.
 
 ---
 
@@ -120,6 +150,7 @@ logged to the server console instead of emailed. Set the key before launch.
 - No CMS. Content is in typed TypeScript, which keeps the site static, fast and
   impossible to break with a plugin update.
 - Every page ships JSON-LD (`LocalBusiness`, `Service`, `FAQPage`,
-  `BreadcrumbList`) and a canonical URL.
+  `BreadcrumbList`) and a canonical URL. Location pages add a per-area
+  `Service` node.
 - `metadataBase` and all canonicals come from `site.url` in `src/lib/site.ts` —
   change it there if the domain changes.

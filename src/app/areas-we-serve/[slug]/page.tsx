@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -10,7 +10,7 @@ import { FaqSection } from "@/components/sections/faq-section";
 import { CtaBand } from "@/components/sections/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ctaSolid, ctaOnDark, ctaOutlineLight } from "@/components/ui/cta";
-import { breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { areaSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { areaMedia, serviceMedia } from "@/content/products";
 import { areas, getArea, services, site } from "@/lib/site";
 
@@ -18,12 +18,17 @@ export function generateStaticParams() {
   return areas.map((a) => ({ slug: a.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps<"/areas-we-serve/[slug]">): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: PageProps<"/areas-we-serve/[slug]">,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const { slug } = await params;
   const area = getArea(slug);
   if (!area) return {};
+
+  // `openGraph` is replaced wholesale, not merged, so spread the root layout's
+  // block to keep the file-based opengraph-image, locale and siteName.
+  const parentOg = (await parent).openGraph ?? {};
 
   const title = `Custom Curtains & Soft Furnishings ${area.name}`;
   const description = `Made-to-measure curtains, Roman blinds, upholstery and soft furnishings for ${area.name} and surrounding ${area.region}. Manufactured in Penrith, measured and installed on site. Call ${site.phone.display}.`;
@@ -33,6 +38,7 @@ export async function generateMetadata({
     description,
     alternates: { canonical: `/areas-we-serve/${area.slug}` },
     openGraph: {
+      ...parentOg,
       title: `${title} | ${site.name}`,
       description,
       url: `${site.url}/areas-we-serve/${area.slug}`,
@@ -79,6 +85,7 @@ export default async function AreaPage({
 
   return (
     <>
+      <JsonLd id={`area-service-${area.slug}`} data={areaSchema(area)} />
       <JsonLd id={`area-breadcrumb-${area.slug}`} data={breadcrumbSchema(trail)} />
       <JsonLd id={`area-faq-${area.slug}`} data={faqSchema(faqs)} />
 

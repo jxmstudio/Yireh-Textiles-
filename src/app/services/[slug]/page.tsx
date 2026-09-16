@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -18,18 +18,24 @@ export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps<"/services/[slug]">): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: PageProps<"/services/[slug]">,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const { slug } = await params;
   const service = getService(slug);
   if (!service) return {};
+
+  // `openGraph` is replaced wholesale, not merged, so spread the root layout's
+  // block to keep the file-based opengraph-image, locale and siteName.
+  const parentOg = (await parent).openGraph ?? {};
 
   return {
     title: service.metaTitle,
     description: service.metaDescription,
     alternates: { canonical: `/services/${service.slug}` },
     openGraph: {
+      ...parentOg,
       title: service.metaTitle,
       description: service.metaDescription,
       url: `${site.url}/services/${service.slug}`,

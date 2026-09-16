@@ -63,6 +63,12 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
   category: "Manufacturing",
+  // Google Search Console "HTML tag" verification. Set GOOGLE_SITE_VERIFICATION
+  // in the host's env (the content= value from Search Console) and redeploy.
+  // Optional: DNS verification of the domain property covers this too.
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

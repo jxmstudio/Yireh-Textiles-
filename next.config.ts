@@ -1,6 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // One canonical host. site.url is https://www.yirehstitchtech.com, every
+  // canonical/sitemap URL uses it, and Search Console should be told the same.
+  // Requests to the bare apex are 308'd to www so Google never indexes both.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "yirehstitchtech.com" }],
+        destination: "https://www.yirehstitchtech.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     // Placeholder photography is served from the Unsplash CDN while we wait on
     // the client's own workroom photos. Swapping to local files is a data edit

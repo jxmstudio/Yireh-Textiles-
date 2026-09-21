@@ -8,8 +8,8 @@ export const site = {
   name: "Yireh Textiles & Sourcing",
   legalName: "Yireh Textiles & Sourcing",
   tagline: "Soft furnishings and curtains, made in Sydney",
-  domain: "yirehstitchtech.com",
-  url: "https://www.yirehstitchtech.com",
+  domain: "yirehtextiles.com.au",
+  url: "https://www.yirehtextiles.com.au",
   email: "info@yirehstitchtech.com",
   phone: {
     display: "0410 288 829",

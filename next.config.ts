@@ -1,15 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // One canonical host. site.url is https://www.yirehstitchtech.com, every
+  // One canonical host. site.url is https://www.yirehtextiles.com.au, every
   // canonical/sitemap URL uses it, and Search Console should be told the same.
   // Requests to the bare apex are 308'd to www so Google never indexes both.
   async redirects() {
     return [
       {
         source: "/:path*",
-        has: [{ type: "host", value: "yirehstitchtech.com" }],
-        destination: "https://www.yirehstitchtech.com/:path*",
+        has: [{ type: "host", value: "yirehtextiles.com.au" }],
+        destination: "https://www.yirehtextiles.com.au/:path*",
         permanent: true,
       },
     ];
